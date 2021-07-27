@@ -1,12 +1,83 @@
 <!DOCTYPE html>
+
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>smartQuiz</title>
-</head>
-<body>
-    
-</body>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="css/style.css">
+
+        <title>smartQuiz</title>    
+
+    </head>
+
+    <body>
+        
+        <div class="outer-wrapper">
+
+            <div class="smart-quiz">
+
+                <div class="question">
+
+                    <h2 class="question__heading">Domanda <span class="question__index">x</span> di <span class="question__count">y</span></h2>
+
+                    <p class="question__text">
+                        Qual è la capitale della Birmania?
+                    </p>
+
+                    <!-- <img src="" alt="question image" class="question__image"> -->
+
+                </div>
+
+                <div class="answers__container">
+
+                    <div class="answers__single">
+                        <label class="answers__label" for="answer-1">
+                            <input class="answers__input" name="answer" type="radio" id="answer-1">
+                            Andorra
+                        </label>
+                    </div>
+
+                    <div class="answers__single">
+                        <label class="answers__label" for="answer-2">
+                            <input class="answers__input" name="answer" type="radio" id="answer-2">
+                            Seul
+                        </label>
+                    </div>
+
+                    <div class="answers__single">
+                        <label class="answers__label" for="answer-3">
+                            <input class="answers__input" name="answer" type="radio" id="answer-3">
+                            <!-- <img class="answers__img" src="img/questions/2.jpg" alt=""> -->
+                            Abbiategrasso                            
+                        </label>
+                    </div>
+
+                    <div class="answers__single">
+                        <label class="answers__label" for="answer-4">
+                            <input class="answers__input" name="answer" type="radio" id="answer-4">
+                            <!-- <img class="answers__img" src="img/questions/1.jpg" alt=""> -->
+                            Nessuna delle precedenti
+                        </label>
+                    </div>
+
+                </div>  <!-- Answers Container -->
+
+                <div class="submit">
+                    <button class="submit__button">Conferma</button>
+                </div>
+
+                <div class="time-bar">
+                    time bar here
+                </div>
+
+            </div>  <!-- Smart Quiz -->
+
+        </div>  <!-- Outer Wrapper -->
+
+        <script src="js/questions.js"></script>
+        <script src="js/main.js"></script>
+    </body>
 </html>

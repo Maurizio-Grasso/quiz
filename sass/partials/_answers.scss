@@ -1,0 +1,30 @@
+.answers {
+
+    &__container {
+        margin-bottom: $spacing-standard;
+    }
+
+    &__single {
+
+        &:not(:last-child) {
+            margin-bottom: $spacing-standard;
+        }
+    }
+
+    &__label {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    &__input {
+        margin-right: $spacing-standard;
+    }
+
+    &__img {
+        max-width: 100%;
+    }
+
+}

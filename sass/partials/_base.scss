@@ -1,0 +1,101 @@
+$content-width : 80rem;
+
+$border-radius-standard : .5rem;
+
+//  Text
+
+$font-size-default : 2rem;
+
+$font-family-default: 'Raleway', sans-serif;
+
+$letter-spacing-default : 1px;
+
+$line-height-default : 1.35em;
+
+
+//  Colors
+
+$color-text : rgb(63, 63, 63);
+
+$white: rgb(240, 240, 240);
+$black: rgb(17, 17, 17);
+
+$red : rgb(192, 0, 0);
+
+$green : rgb(0, 156, 0);
+$lightgreen : rgb(0, 231, 0);
+
+$gray: gray;
+$lightgray : rgb(204, 204, 204);
+
+//  Spacings
+
+$spacing-tiny       : .5rem;
+$spacing-small      :  1rem;
+$spacing-standard   :  2rem; 
+$spacing-big       :  4rem;
+
+// Mixins
+
+@mixin standard-typography {
+    font-size: $font-size-default;
+    line-height: $line-height-default;
+    font-family: $font-family-default;
+    color: $color-text;
+    letter-spacing: $letter-spacing-default;
+}
+
+// Defaults
+
+:root {
+    font-size: 62.5%;
+}
+
+* ,
+*::after ,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+
+body {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: $font-size-default;
+    @include standard-typography;
+    
+    background-color: $lightgray;
+}
+
+.outer-wrapper {
+    max-width: $content-width;
+    margin: 0 auto;
+    background-color: $white;
+}
+
+// Media Queries
+
+@mixin resp($breakpoint) {
+
+    @if $breakpoint == phone {
+        @media (max-width: 37.5em) {    // 600px
+            @content
+        };
+    }
+
+    @if $breakpoint == tablet {
+        @media (max-width: 64em) {    // 1024px
+            @content
+        };
+    }
+
+    @if $breakpoint == desktop {
+        @media (max-width: 75em) {    // 1200px
+            @content
+        };
+    }
+}

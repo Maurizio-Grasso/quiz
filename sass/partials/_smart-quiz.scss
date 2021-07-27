@@ -1,0 +1,18 @@
+.smart-quiz {
+    
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    
+    min-height: 100vh;
+    padding: $spacing-standard;
+}
+
+.submit {
+
+    &__button {
+
+    }
+    margin-bottom: $spacing-standard;
+}
