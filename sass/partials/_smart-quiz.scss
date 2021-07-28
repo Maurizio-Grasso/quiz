@@ -1,26 +1,70 @@
-.smart-quiz {
-    
+@mixin flex-col {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    justify-content: space-between;
+    justify-content: center;
     
     min-height: 100vh;
     padding: $spacing-huge $spacing-standard;
+
+    > *:not(:last-child) {
+        margin-bottom: $spacing-huge;
+    }
+
+}
+
+.ad {
+    &__container {
+        @include flex-col;
+    }
+
+    &__img {
+        img {
+            max-width: 100%;
+            max-height: 50vh;
+            display: block;
+            margin: auto;
+        }
+    }
+}
+.instructions {
+    
+    &__container {
+        @include flex-col;
+    }
+
+    &__text p {
+        &:not(:last-child) {
+            margin-bottom: $spacing-standard;
+        }
+    }
+
+}
+
+.results {
+    &__container {
+        @include flex-col;
+    }
+}
+
+.smart-quiz {
+    
+    @include flex-col;
 
     position: relative;
 }
 
 .time-bar {
     position: absolute;
-    bottom: 0;
+    bottom: $section-tiny;
     left: 0;
-    height: $section-small;
-    line-height: $section-small;
+    height: $section-tiny;
+    line-height: $section-tiny;
     background-image: linear-gradient(to right , $green 40%, $orange 70%, $red 95% , $red 100%);
     background-repeat: no-repeat;
     background-size: 100%;
     width: 100%;
+
     
     &__white-bg {
         position: absolute;

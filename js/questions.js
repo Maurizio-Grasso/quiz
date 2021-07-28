@@ -24,15 +24,51 @@ const questions = [
     } ,
 
     {
-        text : 'Quale di queste località non si trova in Veneto?' ,
+        text : 'Quale fra questi Paesi ha la popolazione maggiore?' ,
         type : 'plain-text' ,
         answers : [
-            'Cortina d\'Ampezzo' ,
-            'Rovigo' ,
-            'Chioggia' ,
-            'Madonna di Campiglio'
+            'Spagna' ,
+            'Italia' ,
+            'Germania' ,
+            'Regno Unito'
         ] ,
-        correct : 3
+        correct : 2
+    } ,
+
+    {
+        text : 'In che anno ha avuto luogo la rivoluzione francese?' ,
+        type : 'plain-text' ,
+        answers : [
+            '1679' ,
+            '1897' ,
+            '1789' ,
+            '1767'
+        ] ,
+        correct : 2
+    } ,
+
+    {
+        text : 'Quale di queste isole ha l\'estensione maggiore?' ,
+        type : 'plain-text' ,
+        answers : [
+            'Sardegna' ,
+            'Sicilia' ,
+            'Maiorca' ,
+            'Cipro'
+        ] ,
+        correct : 1
+    } ,
+
+    {
+        text : 'Quale fra queste affermazioni sul Sistema Solare è errata?' ,
+        type : 'plain-text' ,
+        answers : [
+            'Venere è più distante dal Sole rispetto alla Terra',
+            'Il pianeta più vicino al sole è Mercurio' ,
+            'Il più grande dei pianeti che ruotano intorno al Sole è Giove' ,
+            'La Terra è più grande di Marte' ,
+        ] ,
+        correct : 0
     }
 
 ];

@@ -31,22 +31,70 @@ body {
   background-color: #f0f0f0;
 }
 
+.ad__container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 5rem 2rem;
+}
+.ad__container > *:not(:last-child) {
+  margin-bottom: 5rem;
+}
+.ad__img img {
+  max-width: 100%;
+  max-height: 50vh;
+  display: block;
+  margin: auto;
+}
+
+.instructions__container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 5rem 2rem;
+}
+.instructions__container > *:not(:last-child) {
+  margin-bottom: 5rem;
+}
+.instructions__text p:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.results__container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 5rem 2rem;
+}
+.results__container > *:not(:last-child) {
+  margin-bottom: 5rem;
+}
+
 .smart-quiz {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  justify-content: space-between;
+  justify-content: center;
   min-height: 100vh;
   padding: 5rem 2rem;
   position: relative;
 }
+.smart-quiz > *:not(:last-child) {
+  margin-bottom: 5rem;
+}
 
 .time-bar {
   position: absolute;
-  bottom: 0;
+  bottom: 1.5rem;
   left: 0;
-  height: 3rem;
-  line-height: 3rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
   background-image: linear-gradient(to right, #009c00 40%, #ff8800 70%, #c00000 95%, #c00000 100%);
   background-repeat: no-repeat;
   background-size: 100%;
@@ -187,4 +235,8 @@ body {
 
 .text-uppercase {
   text-transform: uppercase;
+}
+
+.hidden {
+  display: none;
 }

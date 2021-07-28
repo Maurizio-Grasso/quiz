@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="it">
 
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <link rel="stylesheet" href="css/style.css">
 
         <title>smartQuiz</title>    
@@ -16,12 +15,60 @@
     <body>
         
         <div class="outer-wrapper">
+                
+                <div class="ad__container hidden">
+                    
+                    <h2 class="ad__heading">Annuncio Pubblicitario</h2>
+                    
+                    <div class="ad__text">
+                        <p>Hai già risposto a <span class="ad__questions-answered">X</span> domande. Te ne restano soltanto <span class="ad__questions-left">Y</span> per completare il quiz!</p>
+                    </div>
 
+                    <div class="ad__img">
+                        <img src="img/ad.jpg" alt="annuncio pubblicitario">
+                    </div>
 
+                    <button class="btn btn--green btn--large ad__resume-button" onclick="clearAd()">Continua <span class="ad__time-left"></span> </button>
+
+                </div>
+
+                <div class="instructions__container">
+
+                    <h1 class="instructions__heading">Smart Quiz: Istruzioni</h1>
+                    
+                    <div class="instructions__text">
+                        <p>
+                            Questo quiz è composto da <strong><span class="instructions__questions-count"></span> domande</strong> a risposta multipla, con 4 possibili opzioni. Guadagnerai <strong>1 punto</strong> per ogni risposta corretta, <strong>0 punti</strong> per ogni risposta non data (<em>domanda saltata</em>) e ti sarà tolto <strong>1 punto</strong> per ogni risposta sbagliata.
+                        </p>
+
+                        <p>
+                            Per rispondere a ciascuna domanda, avrai a disposizione <strong><span class="instructions__seconds-per-answer"></span> secondi</strong>. Scaduto il tempo, la domanda sarà considerata '<em>saltata</em>' e passerai a quella successiva senza guadagnare punti.
+                        </p>
+
+                        <p>
+                            Per iniziare a giocare, clicca sul pulsante qui sotto e... buona fortuna!
+                        </p>
+                    </div>
+
+                    <button class="btn btn--green btn--large" onclick="quizStart()">Inizia a Giocare</button>
+                
+                </div>
+
+                <div class="results__container hidden">
+
+                    <h2 class="results__heading">Quiz Completato</h2>
+
+                    <div class="results__text">
+                        <p>Hai completato il gioco totalizzando <strong><span class="results__score"></span> punti</strong> su <strong><span class="results__max-score"></span></strong> complessivamente disponibili. Se vuoi giocare un'altra volta, clicca sul pulsante qui sotto.</p>
+                    </div>
+
+                    <button class="btn btn--green btn--large" onclick="quizStart()">Gioca di Nuovo</button>
+
+                </div>
 
             <div class="smart-quiz">
 
-                <div class="question">
+                <div class="question__container">
 
                     <h2 class="question__heading">Domanda <span class="question__index">x</span> di <span class="question__count">y</span></h2>
 
@@ -35,37 +82,7 @@
 
                 <div class="answers__container">
 
-                    <div class="answers__single">
-                        <label class="answers__label" for="answer-1">
-                            <input class="answers__input" value="1" name="answer" type="radio" id="answer-1">
-                            <!--  -->
-                        </label>
-                    </div>
-
-                    <div class="answers__single">
-                        <label class="answers__label" for="answer-2">
-                            <input class="answers__input" value="2" name="answer" type="radio" id="answer-2">
-                            <!--  -->
-                        </label>
-                    </div>
-
-                    <div class="answers__single">
-                        <label class="answers__label" for="answer-3">
-                            <input class="answers__input" value="3" name="answer" type="radio" id="answer-3">
-                            <!-- <img class="answers__img" src="img/questions/2.jpg" alt=""> -->
-                            <!--  -->
-                        </label>
-                    </div>
-
-                    <div class="answers__single">
-                        <label class="answers__label" for="answer-4">
-                            <input class="answers__input" value="4" name="answer" type="radio" id="answer-4">
-                            <!-- <img class="answers__img" src="img/questions/1.jpg" alt=""> -->
-                            <!--  -->
-                        </label>
-                    </div>
-
-                </div>  <!-- Answers Container -->
+                </div>
 
                 <div class="button__container">
                     <button type="button" class="btn btn--large btn--green button__submit text-uppercase" onclick="submitAnswer()">Conferma</button>
@@ -74,7 +91,7 @@
 
                 <div class="time-bar">
                     <div class="time-bar__white-bg"></div>
-                    time bar here
+                    <!-- time bar here -->
                 </div>
 
             </div>  <!-- Smart Quiz -->
