@@ -22,6 +22,8 @@ $black: rgb(17, 17, 17);
 
 $red : rgb(192, 0, 0);
 
+$orange :rgb(255, 136, 0);
+
 $green : rgb(0, 156, 0);
 $lightgreen : rgb(0, 231, 0);
 
@@ -33,9 +35,19 @@ $lightgray : rgb(204, 204, 204);
 $spacing-tiny       : .5rem;
 $spacing-small      :  1rem;
 $spacing-standard   :  2rem; 
-$spacing-big       :  4rem;
+$spacing-big        :  3rem;
+$spacing-huge       :  5rem;
 
-// Mixins
+
+//  Sizing
+
+$section-small  : 3rem;
+
+//  Times
+
+$transition-duration-short : .5s;
+
+//  Mixins
 
 @mixin standard-typography {
     font-size: $font-size-default;

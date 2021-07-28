@@ -17,6 +17,8 @@
         
         <div class="outer-wrapper">
 
+
+
             <div class="smart-quiz">
 
                 <div class="question">
@@ -24,7 +26,7 @@
                     <h2 class="question__heading">Domanda <span class="question__index">x</span> di <span class="question__count">y</span></h2>
 
                     <p class="question__text">
-                        Qual è la capitale della Birmania?
+                        <!-- Question -->
                     </p>
 
                     <!-- <img src="" alt="question image" class="question__image"> -->
@@ -35,41 +37,43 @@
 
                     <div class="answers__single">
                         <label class="answers__label" for="answer-1">
-                            <input class="answers__input" name="answer" type="radio" id="answer-1">
-                            Andorra
+                            <input class="answers__input" value="1" name="answer" type="radio" id="answer-1">
+                            <!--  -->
                         </label>
                     </div>
 
                     <div class="answers__single">
                         <label class="answers__label" for="answer-2">
-                            <input class="answers__input" name="answer" type="radio" id="answer-2">
-                            Seul
+                            <input class="answers__input" value="2" name="answer" type="radio" id="answer-2">
+                            <!--  -->
                         </label>
                     </div>
 
                     <div class="answers__single">
                         <label class="answers__label" for="answer-3">
-                            <input class="answers__input" name="answer" type="radio" id="answer-3">
+                            <input class="answers__input" value="3" name="answer" type="radio" id="answer-3">
                             <!-- <img class="answers__img" src="img/questions/2.jpg" alt=""> -->
-                            Abbiategrasso                            
+                            <!--  -->
                         </label>
                     </div>
 
                     <div class="answers__single">
                         <label class="answers__label" for="answer-4">
-                            <input class="answers__input" name="answer" type="radio" id="answer-4">
+                            <input class="answers__input" value="4" name="answer" type="radio" id="answer-4">
                             <!-- <img class="answers__img" src="img/questions/1.jpg" alt=""> -->
-                            Nessuna delle precedenti
+                            <!--  -->
                         </label>
                     </div>
 
                 </div>  <!-- Answers Container -->
 
-                <div class="submit">
-                    <button class="submit__button">Conferma</button>
+                <div class="button__container">
+                    <button type="button" class="btn btn--large btn--green button__submit text-uppercase" onclick="submitAnswer()">Conferma</button>
+                    <button type="button" class="btn btn--large btn--orange button__skip text-uppercase" onclick="submitAnswer(true)">Salta</button>
                 </div>
 
                 <div class="time-bar">
+                    <div class="time-bar__white-bg"></div>
                     time bar here
                 </div>
 

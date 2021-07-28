@@ -1,0 +1,44 @@
+@mixin btncolor($color) {
+    background-color: $color;
+    border-color: $color;
+    color: $white;
+
+    &:hover {
+        background-color: $white;
+        color: $color;
+    }
+}
+
+.btn {
+    @include standard-typography;
+
+    &:disabled ,
+    &:disabled:hover{
+        background-color: $lightgray;
+        cursor: not-allowed;
+        border: none;
+        opacity: .75;
+        color: $white;
+    }
+
+    font-weight: 700;
+    letter-spacing: 2px;
+
+    border: 1px solid;
+    border-radius: $border-radius-standard;
+    cursor: pointer;
+    transition: color $transition-duration-short , background-color $transition-duration-short;
+
+    &--large {
+        padding: $spacing-standard $spacing-big;
+    }
+
+    &--green {
+        @include btncolor($green)
+    }
+
+    &--orange {
+        @include btncolor($orange)
+    }
+
+}

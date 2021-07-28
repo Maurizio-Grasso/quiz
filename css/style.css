@@ -35,14 +35,85 @@ body {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  justify-content: center;
+  justify-content: space-between;
   min-height: 100vh;
-  padding: 2rem;
+  padding: 5rem 2rem;
+  position: relative;
 }
 
-.submit {
-  margin-bottom: 2rem;
+.time-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3rem;
+  line-height: 3rem;
+  background-image: linear-gradient(to right, #009c00 40%, #ff8800 70%, #c00000 95%, #c00000 100%);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 100%;
 }
+.time-bar__white-bg {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(#f0f0f0, #f0f0f0);
+  background-position: right;
+}
+.time-bar__white-bg--running {
+  -webkit-animation: run-bar 5s linear forwards;
+          animation: run-bar 5s linear forwards;
+}
+.time-bar__white-bg--complete {
+  -webkit-animation: pulse-bar 1s linear both infinite;
+          animation: pulse-bar 1s linear both infinite;
+}
+
+@-webkit-keyframes run-bar {
+  from {
+    background-size: 100%;
+  }
+  to {
+    background-size: 0%;
+  }
+}
+
+@keyframes run-bar {
+  from {
+    background-size: 100%;
+  }
+  to {
+    background-size: 0%;
+  }
+}
+@-webkit-keyframes pulse-bar {
+  from {
+    background-image: linear-gradient(#c00000, #c00000);
+  }
+  to {
+    background-image: linear-gradient(#f0f0f0, #f0f0f0);
+  }
+}
+@keyframes pulse-bar {
+  from {
+    background-image: linear-gradient(#c00000, #c00000);
+  }
+  to {
+    background-image: linear-gradient(#f0f0f0, #f0f0f0);
+  }
+}
+.button__container {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.button__submit, .button__skip {
+  flex: 0 0 calc(100% / 3);
+}
+
 .answers__container {
   margin-bottom: 2rem;
 }
@@ -70,4 +141,50 @@ body {
 }
 .question__text {
   margin-bottom: 2rem;
+}
+
+.btn {
+  font-size: 2rem;
+  line-height: 1.35em;
+  font-family: "Raleway", sans-serif;
+  color: #3f3f3f;
+  letter-spacing: 1px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  border: 1px solid;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: color 0.5s, background-color 0.5s;
+}
+.btn:disabled, .btn:disabled:hover {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  border: none;
+  opacity: 0.75;
+  color: #f0f0f0;
+}
+.btn--large {
+  padding: 2rem 3rem;
+}
+.btn--green {
+  background-color: #009c00;
+  border-color: #009c00;
+  color: #f0f0f0;
+}
+.btn--green:hover {
+  background-color: #f0f0f0;
+  color: #009c00;
+}
+.btn--orange {
+  background-color: #ff8800;
+  border-color: #ff8800;
+  color: #f0f0f0;
+}
+.btn--orange:hover {
+  background-color: #f0f0f0;
+  color: #ff8800;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
 }

@@ -3,16 +3,76 @@
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: space-between;
     
     min-height: 100vh;
-    padding: $spacing-standard;
+    padding: $spacing-huge $spacing-standard;
+
+    position: relative;
 }
 
-.submit {
+.time-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: $section-small;
+    line-height: $section-small;
+    background-image: linear-gradient(to right , $green 40%, $orange 70%, $red 95% , $red 100%);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 100%;
+    
+    &__white-bg {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-image: linear-gradient($white, $white);
+        background-position: right;
+        
+        &--running {
+            animation: run-bar 5s linear forwards;
+        }
 
-    &__button {
+        &--complete {
+            animation: pulse-bar 1s linear both infinite;
+        }
 
     }
-    margin-bottom: $spacing-standard;
+}
+
+@keyframes run-bar {
+    from {
+        background-size: 100%;
+    }
+    to {
+        background-size: 0%;
+    }
+}
+
+@keyframes pulse-bar {
+    from {
+        background-image: linear-gradient( $red , $red);
+    }    
+    to {
+        background-image: linear-gradient( $white , $white);
+    }
+}
+
+.button {
+
+    &__container {
+        margin-bottom: $spacing-standard;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    &__submit ,
+    &__skip{
+        flex: 0 0 calc(100% / 3);
+    }
+
 }
