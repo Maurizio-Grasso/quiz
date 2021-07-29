@@ -69,6 +69,78 @@ const questions = [
             'La Terra è più grande di Marte' ,
         ] ,
         correct : 0
+    } ,
+
+    {
+        text : 'Quale fra questi NON è un linguaggio di programmazione?' ,
+        type : 'plain-text' ,
+        answers : [
+            'Python',
+            'Java' ,
+            'HTML' ,
+            'C++' ,
+        ] ,
+        correct : 2
+    } ,
+
+    {
+        text : 'In quale anno il Titanic affondò?' ,
+        type : 'plain-text' ,
+        answers : [
+            '1901',
+            '1920' ,
+            '1921' ,
+            '1912' ,
+        ] ,
+        correct : 3
+    } ,
+
+    {
+        text : 'Qual è il numero primo immediatamente superiore a 100?' ,
+        type : 'plain-text' ,
+        answers : [
+            '101',
+            '102' ,
+            '103' ,
+            '104' ,
+        ] ,
+        correct : 0
+    } ,
+
+    {
+        text : 'Con quale di questi Paesi NON confina la Polonia?' ,
+        type : 'plain-text' ,
+        answers : [
+            'Russia',
+            'Ungheria' ,
+            'Slovacchia' ,
+            'Ucraina' ,
+        ] ,
+        correct : 1
+    } ,
+
+    {
+        text : 'Quale di questi personaggi è nato per primo?' ,
+        type : 'plain-text' ,
+        answers : [
+            'Charles Darwin',
+            'Alessandro Volta' ,
+            'Ludwig van Beethoven ' ,
+            'Camillo Benso, conte di Cavour' ,
+        ] ,
+        correct : 1
+    } ,
+
+    {
+        text : 'Chi ha scritto la colonna sonora del film \'Jurassic Park\'?' ,
+        type : 'plain-text' ,
+        answers : [
+            'Trevor Jones',
+            'James Horner' ,
+            'John Williams' ,
+            'Hans Zimmer ' ,
+        ] ,
+        correct : 2
     }
 
 ];

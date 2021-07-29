@@ -19,7 +19,7 @@
     &:disabled:hover{
         background-color: $lightgray;
         cursor: not-allowed;
-        border: none;
+        border-color: $lightgray;
         opacity: .75;
         color: $white;
     }

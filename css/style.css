@@ -2,6 +2,16 @@
 :root {
   font-size: 62.5%;
 }
+@media only screen and (max-width: 64em) {
+  :root {
+    font-size: 55%;
+  }
+}
+@media only screen and (max-width: 31.25em) {
+  :root {
+    font-size: 50%;
+  }
+}
 
 *,
 *::after,
@@ -60,8 +70,12 @@ body {
 .instructions__container > *:not(:last-child) {
   margin-bottom: 5rem;
 }
-.instructions__text p:not(:last-child) {
+.instructions__text p:not(:last-child), .instructions__text ul:not(:last-child), .instructions__text li:not(:last-child) {
   margin-bottom: 2rem;
+}
+.instructions__text ul {
+  list-style-type: circle;
+  margin-left: 2rem;
 }
 
 .results__container {
@@ -158,8 +172,21 @@ body {
   flex-direction: row;
   justify-content: space-between;
 }
+@media only screen and (max-width: 31.25em) {
+  .button__container {
+    flex-wrap: wrap;
+  }
+}
 .button__submit, .button__skip {
   flex: 0 0 calc( (100% - 2rem) / 2);
+}
+@media only screen and (max-width: 31.25em) {
+  .button__submit, .button__skip {
+    flex: 1 1 100%;
+  }
+  .button__submit:not(:last-child), .button__skip:not(:last-child) {
+    margin-bottom: 2rem;
+  }
 }
 
 .answers__container {
@@ -207,7 +234,7 @@ body {
 .btn:disabled, .btn:disabled:hover {
   background-color: #cccccc;
   cursor: not-allowed;
-  border: none;
+  border-color: #cccccc;
   opacity: 0.75;
   color: #f0f0f0;
 }

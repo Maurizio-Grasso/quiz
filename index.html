@@ -37,17 +37,22 @@
                     <h1 class="instructions__heading">Smart Quiz: Istruzioni</h1>
                     
                     <div class="instructions__text">
+                        
                         <p>
-                            Questo quiz è composto da <strong><span class="instructions__questions-count"></span> domande</strong> a risposta multipla, con 4 possibili opzioni. Guadagnerai <strong>1 punto</strong> per ogni risposta corretta, <strong>0 punti</strong> per ogni risposta non data (<em>domanda saltata</em>) e ti sarà tolto <strong>1 punto</strong> per ogni risposta sbagliata.
+                            Questo quiz è composto da <strong><span class="instructions__questions-count"></span> domande</strong> a risposta multipla, con 4 possibili opzioni. Ecco le semplici regole: 
                         </p>
 
-                        <p>
-                            Per rispondere a ciascuna domanda, avrai a disposizione <strong><span class="instructions__seconds-per-answer"></span> secondi</strong>. Scaduto il tempo, la domanda sarà considerata '<em>saltata</em>' e passerai a quella successiva senza guadagnare punti.
-                        </p>
+                        <ul>
+                            <li>Guadagnerai <strong>1 punto</strong> per ogni risposta corretta</li>
+                            <li>Guadagnerai <strong>0 punti</strong> per ogni risposta non data (<em>domanda saltata</em>)</li>
+                            <li>Perderai <strong>1 punto</strong> per ogni risposta sbagliata</li>
+                            <li>Per rispondere a ciascuna domanda, avrai a disposizione <strong><span class="instructions__seconds-per-answer"></span> secondi</strong>. Scaduto il tempo, la domanda sarà considerata '<em>saltata</em>' e passerai a quella successiva senza guadagnare punti</li>
+                        </ul>
 
                         <p>
                             Per iniziare a giocare, clicca sul pulsante qui sotto e... buona fortuna!
                         </p>
+                        
                     </div>
 
                     <button class="btn btn--primary btn--large" onclick="quizStart()">Inizia a Giocare</button>
@@ -62,7 +67,7 @@
                         <p>Hai completato il gioco totalizzando <strong><span class="results__score"></span> punti</strong> su <strong><span class="results__max-score"></span></strong> complessivamente disponibili. Se vuoi giocare un'altra volta, clicca sul pulsante qui sotto.</p>
                     </div>
 
-                    <button class="btn btn--primary btn--large" onclick="quizStart()">Gioca di Nuovo</button>
+                    <button class="btn btn--primary btn--large" onclick="init()">Ricomincia</button>
 
                 </div>
 

@@ -33,12 +33,20 @@
         @include flex-col;
     }
 
-    &__text p {
-        &:not(:last-child) {
-            margin-bottom: $spacing-standard;
+    &__text {
+
+        p , ul , li{
+
+            &:not(:last-child) {
+                margin-bottom: $spacing-standard;
+            }
+        }
+
+        ul {
+            list-style-type: circle;
+            margin-left: $spacing-standard;
         }
     }
-
 }
 
 .results {
@@ -112,11 +120,26 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+
+        @include resp(phone) {
+            flex-wrap: wrap;
+        }
     }
 
     &__submit ,
     &__skip{
+
         flex: 0 0 calc( (100% - #{$spacing-standard}) / 2);
+
+        @include resp(phone) {
+
+            flex: 1 1 100%;
+
+            &:not(:last-child) {
+                margin-bottom: $spacing-standard;
+            }
+
+        }
     }
 
 }

@@ -60,10 +60,40 @@ $transition-duration-short : .5s;
     letter-spacing: $letter-spacing-default;
 }
 
+@mixin resp($breakpoint) {
+
+    @if $breakpoint == phone {
+        @media only screen and (max-width: 31.25em) {    // 600px
+            @content
+        };
+    }
+
+    @if $breakpoint == tablet {
+        @media only screen and (max-width: 64em) {    // 1024px
+            @content
+        };
+    }
+
+    @if $breakpoint == desktop {
+        @media only screen and (max-width: 75em) {    // 1200px
+            @content
+        };
+    }
+}
+
 // Defaults
 
 :root {
     font-size: 62.5%;
+
+    @include resp(tablet) {
+        font-size: 55%;
+    }
+
+    @include resp(phone) {
+        font-size: 50%;
+    }
+
 }
 
 * ,
@@ -94,23 +124,3 @@ body {
 
 // Media Queries
 
-@mixin resp($breakpoint) {
-
-    @if $breakpoint == phone {
-        @media only screen and (max-width: 31.25em) {    // 600px
-            @content
-        };
-    }
-
-    @if $breakpoint == tablet {
-        @media only screen and (max-width: 64em) {    // 1024px
-            @content
-        };
-    }
-
-    @if $breakpoint == desktop {
-        @media only screen and (max-width: 75em) {    // 1200px
-            @content
-        };
-    }
-}

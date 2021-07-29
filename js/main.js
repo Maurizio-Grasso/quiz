@@ -57,6 +57,7 @@ init();
 //  Inizializzazione del'app
 
 function init(){
+    hideResults();
     hideGameControls();
     showInstructions();
 }
@@ -164,9 +165,9 @@ function printAnswers() {
 
 function quizStart() {
     
+    // hideResults();
+    
     hideInstructions();
-    hideResults();
-
     showGameControls();
 
     currentQuestionIndex = 0;
