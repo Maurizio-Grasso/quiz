@@ -3,11 +3,13 @@
 
 //  Elements
 
-const elInstraction = {
+const elInstruction = {
     container       : document.querySelector('.instructions__container'),
     questionsCount  : document.querySelector('.instructions__questions-count'),
     secondsPerAnswer: document.querySelector('.instructions__seconds-per-answer')
 }
+
+const elTopicSelect   = document.querySelector('.topic__select'); 
 
 const elQuizContainer = document.querySelector('.smart-quiz');
 
@@ -49,7 +51,7 @@ const elAd = {
 
 const secondsPerAnswer = 10;
 
-let currentQuestionIndex , question , score , selectedAnswer , timerGame , timerAd;
+let currentQuestionIndex , question , score , selectedAnswer , selectedTopic, timerGame , timerAd;
 
 init();
 
@@ -84,12 +86,15 @@ function hideGameControls(){
 //  Mostra / Nasconde container con istruzioni
 
 function showInstructions(){
-    elInstraction.questionsCount.textContent = questions.length;
-    elInstraction.secondsPerAnswer.textContent = secondsPerAnswer;
-    elInstraction.container.classList.remove('hidden');
+    elInstruction.questionsCount.textContent = questions.length;
+    elInstruction.secondsPerAnswer.textContent = secondsPerAnswer;
+
+    printTopicList();
+
+    elInstruction.container.classList.remove('hidden');
 }
 function hideInstructions(){
-    elInstraction.container.classList.add('hidden');
+    elInstruction.container.classList.add('hidden');
 }
 
 
@@ -123,6 +128,16 @@ function hideAdBox() {
 ***     le informazioni sulla pagina
 ***
 */
+
+function printTopicList() {
+    let tmpTpicList = ['Geografia' , 'Storia' , 'Informatica'];
+
+    elTopicSelect.innerHTML = '';
+
+    for( const [i , topic] of tmpTpicList.entries()) {
+        elTopicSelect.innerHTML += `<option class="topic__option" value="${i}">${topic}</option>`;
+    }
+}
 
 
 //  Stampa il testo della domanda ed il numero corrispondente nell'heading

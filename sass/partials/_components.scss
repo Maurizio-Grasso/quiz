@@ -57,27 +57,30 @@
     align-items: center;
     justify-content: center;
 
-    &__select {
+    &__label {
+        flex: 0 0 100%;
+    }
 
+    &__select {
+        width: 100%;
         @include standard-typography;
 
         padding: $spacing-small $spacing-big;
         text-align: center;
 
-        border: 1px solid $color-primary;
-
+        border: 1px solid transparent;        
         border-radius: $border-radius-standard;
+
         &:focus ,
         &:active {
             outline: none;
-            border-color: transparent;
-            color: $white;
-            background-color: $color-primary;
+            border-color: $color-primary;
+            color: $color-primary;
+            background-color: $white;
         }
     }
 
     &__option {
-        background-color: $white;
         color: $color-text;
     }
 }

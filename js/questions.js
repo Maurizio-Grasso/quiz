@@ -1,26 +1,28 @@
 const questions = [
     {
-        text : 'In che anno l\'Italia ha vinto l\'ultimo mondiale?' ,
+        text : 'A quanti bit corrisponde un byte?' ,
         type : 'plain-text' ,
         answers : [
-            2002 ,
-            1998 ,
-            2006 ,
-            1994
+            '1' ,
+            '2' ,
+            '4' ,
+            '8' ,
         ] ,
-        correct : 2
+        correct : 3 ,
+        topic : 'informatica',
     } ,
 
     {
-        text : 'Chi ha scritto \'I Promessi Sposi\'?' ,
+        text : 'A quanti metri di profondità si trova il punto più profondo degli oceani oggi conosciuto?',
         type : 'plain-text' ,
         answers : [
-            'Fabio Volo' ,
-            'Alessandro Manzoni' ,
-            'Niccolò Ammaniti' ,
-            'Antonio Manzini'
+            'Circa 3.000' ,
+            'circa 6.000' ,
+            'circa 11.000' ,
+            'circa 16.000'
         ] ,
-        correct : 1
+        correct : 2 ,
+        topic : 'scienze' ,
     } ,
 
     {
@@ -32,7 +34,8 @@ const questions = [
             'Germania' ,
             'Regno Unito'
         ] ,
-        correct : 2
+        correct : 2 ,
+        topic : 'geografia' ,
     } ,
 
     {
@@ -44,7 +47,8 @@ const questions = [
             '1789' ,
             '1767'
         ] ,
-        correct : 2
+        correct : 2 ,
+        topic : 'storia' ,
     } ,
 
     {
@@ -56,7 +60,8 @@ const questions = [
             'Maiorca' ,
             'Cipro'
         ] ,
-        correct : 1
+        correct : 1 ,
+        topic : 'geografia' ,
     } ,
 
     {
@@ -68,7 +73,8 @@ const questions = [
             'Il più grande dei pianeti che ruotano intorno al Sole è Giove' ,
             'La Terra è più grande di Marte' ,
         ] ,
-        correct : 0
+        correct : 0 ,
+        topic : 'scienze' ,
     } ,
 
     {
@@ -80,7 +86,8 @@ const questions = [
             'HTML' ,
             'C++' ,
         ] ,
-        correct : 2
+        correct : 2 ,
+        topic : 'informatica' ,
     } ,
 
     {
@@ -92,7 +99,8 @@ const questions = [
             '1921' ,
             '1912' ,
         ] ,
-        correct : 3
+        correct : 3 ,
+        topic : 'storia' ,
     } ,
 
     {
@@ -104,7 +112,8 @@ const questions = [
             '103' ,
             '104' ,
         ] ,
-        correct : 0
+        correct : 0 ,
+        topic : 'scienze' ,
     } ,
 
     {
@@ -116,7 +125,8 @@ const questions = [
             'Slovacchia' ,
             'Ucraina' ,
         ] ,
-        correct : 1
+        correct : 1 ,
+        topic : 'geografia' ,
     } ,
 
     {
@@ -128,19 +138,125 @@ const questions = [
             'Ludwig van Beethoven ' ,
             'Camillo Benso, conte di Cavour' ,
         ] ,
-        correct : 1
+        correct : 1 ,
+        topic : 'storia' ,
     } ,
 
     {
-        text : 'Chi ha scritto la colonna sonora del film \'Jurassic Park\'?' ,
+        text : 'Chi è considerato il \'papà\' del Web?' ,
         type : 'plain-text' ,
         answers : [
-            'Trevor Jones',
-            'James Horner' ,
-            'John Williams' ,
-            'Hans Zimmer ' ,
+            'Tim Berners-Lee',
+            'Evan You' ,
+            'Bill Gates' ,
+            'Taylor Otwell ' ,
         ] ,
-        correct : 2
-    }
+        correct : 0 ,
+        topic : 'informatica' ,
+    } ,
+
+    {
+        text : 'In che anno fu portata a termine la prima circumnavigazione completa della Terra?' ,
+        type : 'plain-text' ,
+        answers : [
+            '1492',
+            '1501' ,
+            '1601' ,
+            '1522 ' ,
+        ] ,
+        correct : 3 ,
+        topic : 'storia' ,
+    } ,
+
+    {
+        text : 'Quale di queste città si trova più a nord?' ,
+        type : 'plain-text' ,
+        answers : [
+            'Londra',
+            'Berlino' ,
+            'Amsterdam' ,
+            'Varsavia ' ,
+        ] ,
+        correct : 1 ,
+        topic : 'geografia' ,
+    } ,
+
+    {
+        text : 'Qual è il simbolo chimico dell\'oro?' ,
+        type : 'plain-text' ,
+        answers : [
+            'Au',
+            'Go' ,
+            'Or' ,
+            'Ur ' ,
+        ] ,
+        correct : 0 ,
+        topic : 'scienze' ,
+    } ,
+
+    {
+        text : 'Quale linguaggio viene impiegato per gestire il layout delle pagine Web?' ,
+        type : 'plain-text' ,
+        answers : [
+            'JavaScript',
+            'PHP' ,
+            'HTML' ,
+            'CSS ' ,
+        ] ,
+        correct : 3 ,
+        topic : 'informatica' ,
+    } ,
+
+    {
+        text : 'Quale papa fu eletto lo stesso anno della scoperta dell\'America?' ,
+        type : 'plain-text' ,
+        answers : [
+            'Alessandro VI',
+            'Sisto IV' ,
+            'Callisto III' ,
+            'Giulio II ' ,
+        ] ,
+        correct : 0 ,
+        topic : 'storia' ,
+    },
+
+    {
+        text : 'Quale di questi personaggi nacque e morì nel corso dello stesso secolo?' ,
+        type : 'plain-text' ,
+        answers : [
+            'Leonardo da Vinci',
+            'Napoleone Bonaparte' ,
+            'Lorenzo de\' Medici' ,
+            'Dante Alighieri' ,
+        ] ,
+        correct : 2 ,
+        topic : 'storia' ,
+    },
+
+    {
+        text : 'Se lancio una monetina 5 volte, quante possibilità ci sono che esca sempre \'croce\'?' ,
+        type : 'plain-text' ,
+        answers : [
+            '1 su 64',
+            '2 su 10' ,
+            '1 su 5',
+            '1 su 32' ,
+        ] ,
+        correct : 3 ,
+        topic : 'scienze' ,
+    },
+
+    {
+        text : 'Quale fra questi Paesi NON si trova nello stesso emisfero degli altri tre?' ,
+        type : 'plain-text' ,
+        answers : [
+            'Papua Nuova Guinea' ,
+            'Filippine',
+            'Malesia',
+            'Sri Lanka' ,
+        ] ,
+        correct : 0 ,
+        topic : 'geografia' ,
+    } ,
 
 ];

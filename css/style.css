@@ -281,7 +281,11 @@ body {
   align-items: center;
   justify-content: center;
 }
+.topic__label {
+  flex: 0 0 100%;
+}
 .topic__select {
+  width: 100%;
   font-size: 2rem;
   line-height: 1.35em;
   font-family: "Raleway", sans-serif;
@@ -289,17 +293,16 @@ body {
   letter-spacing: 1px;
   padding: 1rem 3rem;
   text-align: center;
-  border: 1px solid #17408b;
+  border: 1px solid transparent;
   border-radius: 0.5rem;
 }
 .topic__select:focus, .topic__select:active {
   outline: none;
-  border-color: transparent;
-  color: #f0f0f0;
-  background-color: #17408b;
+  border-color: #17408b;
+  color: #17408b;
+  background-color: #f0f0f0;
 }
 .topic__option {
-  background-color: #f0f0f0;
   color: #3f3f3f;
 }
 
