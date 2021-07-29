@@ -156,10 +156,10 @@ body {
   margin-bottom: 2rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 .button__submit, .button__skip {
-  flex: 0 0 calc(100% / 3);
+  flex: 0 0 calc( (100% - 2rem) / 2);
 }
 
 .answers__container {
@@ -214,23 +214,38 @@ body {
 .btn--large {
   padding: 2rem 3rem;
 }
+.btn--primary {
+  background-color: #17408b;
+  border-color: #17408b;
+  color: #f0f0f0;
+}
+@media only screen and (hover: hover) {
+  .btn--primary:hover {
+    background-color: #f0f0f0;
+    color: #17408b;
+  }
+}
 .btn--green {
   background-color: #009c00;
   border-color: #009c00;
   color: #f0f0f0;
 }
-.btn--green:hover {
-  background-color: #f0f0f0;
-  color: #009c00;
+@media only screen and (hover: hover) {
+  .btn--green:hover {
+    background-color: #f0f0f0;
+    color: #009c00;
+  }
 }
 .btn--orange {
   background-color: #ff8800;
   border-color: #ff8800;
   color: #f0f0f0;
 }
-.btn--orange:hover {
-  background-color: #f0f0f0;
-  color: #ff8800;
+@media only screen and (hover: hover) {
+  .btn--orange:hover {
+    background-color: #f0f0f0;
+    color: #ff8800;
+  }
 }
 
 .text-uppercase {

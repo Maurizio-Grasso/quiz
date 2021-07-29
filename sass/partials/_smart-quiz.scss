@@ -111,12 +111,12 @@
         margin-bottom: $spacing-standard;
         display: flex;
         flex-direction: row;
-        justify-content: space-evenly;
+        justify-content: space-between;
     }
 
     &__submit ,
     &__skip{
-        flex: 0 0 calc(100% / 3);
+        flex: 0 0 calc( (100% - #{$spacing-standard}) / 2);
     }
 
 }

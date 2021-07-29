@@ -15,6 +15,8 @@ $line-height-default : 1.35em;
 
 //  Colors
 
+$color-primary : rgb(23, 64, 139);
+
 $color-text : rgb(63, 63, 63);
 
 $white: rgb(240, 240, 240);
@@ -95,19 +97,19 @@ body {
 @mixin resp($breakpoint) {
 
     @if $breakpoint == phone {
-        @media (max-width: 37.5em) {    // 600px
+        @media only screen and (max-width: 31.25em) {    // 600px
             @content
         };
     }
 
     @if $breakpoint == tablet {
-        @media (max-width: 64em) {    // 1024px
+        @media only screen and (max-width: 64em) {    // 1024px
             @content
         };
     }
 
     @if $breakpoint == desktop {
-        @media (max-width: 75em) {    // 1200px
+        @media only screen and (max-width: 75em) {    // 1200px
             @content
         };
     }

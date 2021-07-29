@@ -40,9 +40,11 @@ const elResults = {
 }
 
 const elAd = {
-    container   : document.querySelector('.ad__container'),
-    resumeBtn   : document.querySelector('.ad__resume-button'),
-    timeLeft    : document.querySelector('.ad__time-left')
+    container           : document.querySelector('.ad__container'),
+    resumeBtn           : document.querySelector('.ad__resume-button'),
+    timeLeft            : document.querySelector('.ad__time-left'),
+    questionsAnswered   : document.querySelector('.ad__questions-answered'),
+    questionsLeft       : document.querySelector('.ad__questions-left'),
 }
 
 const secondsPerAnswer = 10;
@@ -106,6 +108,8 @@ function hideResults(){
 
 function showAdBox() {
     elAd.resumeBtn.disabled = true;
+    elAd.questionsAnswered.textContent = (currentQuestionIndex);
+    elAd.questionsLeft.textContent = (questions.length - currentQuestionIndex);
     elAd.container.classList.remove('hidden');
 }
 function hideAdBox() {
@@ -192,12 +196,27 @@ function readAnswer(val) {
 
 function submitAnswer(noAnswer = false) {
 
+    clearTimeout(timerGame);
+    resetBar();
+
+    //  Se viene fornita una risposta ne valuta l'esattezza aggiornando il punteggio di conseguenza
     if(!noAnswer) {
         selectedAnswer === question.correct ? score += 2 : score -= 1 ;
     }
 
-    resetBar();
-    clearTimeout(timerGame);
+    if(currentQuestionIndex === (questions.length)) {
+        // Se non ci sono altre domande chiudo il gioco
+        gameOver();
+        return;
+    } else if(currentQuestionIndex >= 2 && currentQuestionIndex % 2 === 0) {
+        //  Valuta se mostrare annuncio pubblicitario. La valutazione viene effettuata ogni due domande a partire dalla terza.
+        //  Ad ogni valutazione ci sarà 1 possibilità su 3 che l'annuncio venga effettivamente mostrato
+        if(Math.random() * 3  > 2) {
+            loadAd();
+            return;
+        } 
+    }
+    
     nextQuestion();
 }
 
@@ -205,17 +224,8 @@ function submitAnswer(noAnswer = false) {
 //  Lancia domanda successiva
 
 function nextQuestion() {
-    
-    if(currentQuestionIndex === (questions.length)) {
-        // Se non ci sono altre domande chiudo il gioco
-        gameOver();
-        return;
-    } else if(currentQuestionIndex >= 2 && currentQuestionIndex % 2 === 0) {
-        // Ogni due domande (dalla terza in poi) ci sarà una possibilità su 3 che venga caricato un Ad (statisticamente succederà ogni 6 domande)
-        if(Math.random() * 3  > 2) loadAd();
-    } 
-        
-    question = questions[currentQuestionIndex];
+            
+    question = questions[currentQuestionIndex]; //  alias
     
     elButtons.submit.disabled = true;
     
@@ -223,7 +233,9 @@ function nextQuestion() {
     printAnswers();
     runBar();
     
-    timerGame = setTimeout( function() {timeExpired()}, 1000 * secondsPerAnswer);
+    timerGame = setTimeout( function() {
+        timeExpired()
+    }, 1000 * secondsPerAnswer);
     
     currentQuestionIndex++;
 
@@ -259,13 +271,13 @@ function loadAd(){
     hideGameControls();
     showAdBox();
     
-    let secondsLeft = 15;
+    let secondsLeft = 15;   //  Durata visualizzazione annuncio
     
     timerAd = setInterval(() => {
         if(secondsLeft === 0) {
             clearInterval(timerAd);
             elAd.resumeBtn.disabled = false;
-            elAd.timeLeft.textContent = '';
+            elAd.timeLeft.textContent = '->';
             
         } else {
             elAd.timeLeft.textContent = secondsLeft;
@@ -274,12 +286,14 @@ function loadAd(){
     }, 100);    // Dovrà essere impostato a 1000
 }
 
+
 //  Disattiva pannello con banner e riprende il gioco
 
 function clearAd(){
     timerAd = null;
     hideAdBox();
     showGameControls();
+    nextQuestion();
 }
 
 
@@ -294,18 +308,25 @@ function clearAd(){
 //  Inizia a riempire la barra di caricamento
 
 function runBar() {
+
     resetBar();
+
+    //  Cambio lo style con un timeout, per evitare che il browser accorpi tutte le modifiche
     setTimeout(() => {        
         elBar.background.style.animationDuration = secondsPerAnswer + 's';
         elBar.background.classList.add("time-bar__white-bg--running");
     }, 50);
+
 }
 
 
 //  Fa pulsare la barra (tempo scaduto)
 
 function pulseBar() {
+
     resetBar();
+
+    //  Cambio lo style con un timeout, per evitare che il browser accorpi tutte le modifiche
     setTimeout(() => {
         elBar.background.style.animationDuration = '1s';
         elBar.background.classList.add("time-bar__white-bg--complete");
@@ -313,7 +334,7 @@ function pulseBar() {
 }
 
 
-//  Rimuove tutte le classi assegnate alla barra
+//  Rimuove tutte le classi e le regole css assegnate alla barra
 
 function resetBar() {
     elBar.background.style.animationDuration = 0;
