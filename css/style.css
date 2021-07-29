@@ -275,6 +275,34 @@ body {
   }
 }
 
+.topic {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.topic__select {
+  font-size: 2rem;
+  line-height: 1.35em;
+  font-family: "Raleway", sans-serif;
+  color: #3f3f3f;
+  letter-spacing: 1px;
+  padding: 1rem 3rem;
+  text-align: center;
+  border: 1px solid #17408b;
+  border-radius: 0.5rem;
+}
+.topic__select:focus, .topic__select:active {
+  outline: none;
+  border-color: transparent;
+  color: #f0f0f0;
+  background-color: #17408b;
+}
+.topic__option {
+  background-color: #f0f0f0;
+  color: #3f3f3f;
+}
+
 .text-uppercase {
   text-transform: uppercase;
 }
