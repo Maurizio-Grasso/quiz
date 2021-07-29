@@ -1,11 +1,10 @@
 'use strict';
 
-
 //  Elements
 
 const elInstruction = {
     container       : document.querySelector('.instructions__container'),
-    questionsCount  : document.querySelector('.instructions__questions-count'),
+    // questionsCount  : document.querySelector('.instructions__questions-count'),
     secondsPerAnswer: document.querySelector('.instructions__seconds-per-answer')
 }
 
@@ -51,7 +50,7 @@ const elAd = {
 
 const secondsPerAnswer = 10;
 
-let currentQuestionIndex , question , score , selectedAnswer , selectedTopic, timerGame , timerAd;
+let questions , currentQuestionIndex , question , score , selectedAnswer , timerGame , timerAd;
 
 init();
 
@@ -86,7 +85,7 @@ function hideGameControls(){
 //  Mostra / Nasconde container con istruzioni
 
 function showInstructions(){
-    elInstruction.questionsCount.textContent = questions.length;
+    // elInstruction.questionsCount.textContent = questions.length;
     elInstruction.secondsPerAnswer.textContent = secondsPerAnswer;
 
     printTopicList();
@@ -129,14 +128,18 @@ function hideAdBox() {
 ***
 */
 
+//  Aggiunge una option per ogni topic supportato alla select degli argomenti
+
 function printTopicList() {
-    let tmpTpicList = ['Geografia' , 'Storia' , 'Informatica'];
 
-    elTopicSelect.innerHTML = '';
+    elTopicSelect.innerHTML = '';    
 
-    for( const [i , topic] of tmpTpicList.entries()) {
-        elTopicSelect.innerHTML += `<option class="topic__option" value="${i}">${topic}</option>`;
+    for( const [index , {label} ] of topics.entries()) {
+        elTopicSelect.innerHTML += `<option class="topic__option" value="${index}">${label}</option>`;
     }
+    
+    elTopicSelect.value = 0;    // default
+
 }
 
 
@@ -179,7 +182,7 @@ function printAnswers() {
 //  Avvia il quiz
 
 function quizStart() {
-    
+    readSelectedTopic();
     // hideResults();
     
     hideInstructions();
@@ -198,6 +201,9 @@ function quizStart() {
     nextQuestion();
 }
 
+function readSelectedTopic() {
+    questions = topics[elTopicSelect.value].questions;
+}
 
 // Memorizza la risposta selezionata dall'utente
 
