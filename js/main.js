@@ -1,14 +1,24 @@
 'use strict';
 
+//  Settings
+
+    const allowMultipleTopics   = true;     //  L'utente può scegliere un argomento specifico?
+    const showAd                = true;    //  Mostrare annunci pubblicitari?
+    const secondsPerAnswer      = 15;       //  Tempo a disposizione dell'utente per rispondere ad ogni domanda
+    const timeForAd             = 20;       //  Tempo di visualizzazione del messaggio pubblicitario
+
 //  Elements
 
 const elInstruction = {
-    container       : document.querySelector('.instructions__container'),
-    // questionsCount  : document.querySelector('.instructions__questions-count'),
-    secondsPerAnswer: document.querySelector('.instructions__seconds-per-answer')
+    container        : document.querySelector('.instructions__container'),
+    chooseTopic      : document.querySelector('.instructions__choose-topic'),
+    secondsPerAnswer : document.querySelector('.instructions__seconds-per-answer')
 }
 
-const elTopicSelect   = document.querySelector('.topic__select'); 
+const elTopic = {
+    container   : document.querySelector('.topic__container'), 
+    select      : document.querySelector('.topic__select')
+} 
 
 const elQuizContainer = document.querySelector('.smart-quiz');
 
@@ -48,8 +58,6 @@ const elAd = {
     questionsLeft       : document.querySelector('.ad__questions-left'),
 }
 
-const secondsPerAnswer = 10;
-
 let questions , currentQuestionIndex , question , score , selectedAnswer , timerGame , timerAd;
 
 init();
@@ -60,6 +68,7 @@ init();
 function init(){
     hideResults();
     hideGameControls();
+    if(allowMultipleTopics) printTopicData();
     showInstructions();
 }
 
@@ -85,11 +94,9 @@ function hideGameControls(){
 //  Mostra / Nasconde container con istruzioni
 
 function showInstructions(){
-    // elInstruction.questionsCount.textContent = questions.length;
+
     elInstruction.secondsPerAnswer.textContent = secondsPerAnswer;
-
-    printTopicList();
-
+        
     elInstruction.container.classList.remove('hidden');
 }
 function hideInstructions(){
@@ -128,18 +135,20 @@ function hideAdBox() {
 ***
 */
 
-//  Aggiunge una option per ogni topic supportato alla select degli argomenti
+//  Mostra i contenuti relativi alla scelta di uno specifico argomento
 
-function printTopicList() {
+function printTopicData() {
 
-    elTopicSelect.innerHTML = '';    
+    elInstruction.chooseTopic.textContent = ', scegli un argomento e';  //  modifica span delle istruzioni
+
+    elTopic.container.classList.remove('hidden');
+
+    elTopic.select.innerHTML = '';    
 
     for( const [index , {label} ] of topics.entries()) {
-        elTopicSelect.innerHTML += `<option class="topic__option" value="${index}">${label}</option>`;
+        elTopic.select.innerHTML += `<option class="topic__option" value="${index}">${label}</option>`;
     }
     
-    elTopicSelect.value = 0;    // default
-
 }
 
 
@@ -182,8 +191,8 @@ function printAnswers() {
 //  Avvia il quiz
 
 function quizStart() {
-    readSelectedTopic();
-    // hideResults();
+    
+    questions = getQuestionsList();
     
     hideInstructions();
     showGameControls();
@@ -201,8 +210,8 @@ function quizStart() {
     nextQuestion();
 }
 
-function readSelectedTopic() {
-    questions = topics[elTopicSelect.value].questions;
+function getQuestionsList() {
+    return topics[(elTopic.select?.value) || 0].questions;
 }
 
 // Memorizza la risposta selezionata dall'utente
@@ -230,10 +239,10 @@ function submitAnswer(noAnswer = false) {
         // Se non ci sono altre domande chiudo il gioco
         gameOver();
         return;
-    } else if(currentQuestionIndex >= 2 && currentQuestionIndex % 2 === 0) {
-        //  Valuta se mostrare annuncio pubblicitario. La valutazione viene effettuata ogni due domande a partire dalla terza.
+    } else if( showAd && currentQuestionIndex >= 3 && currentQuestionIndex % 2 === 0) {
+        //  Valuta se mostrare annuncio pubblicitario. La valutazione viene effettuata ogni due domande a partire dalla quarta.
         //  Ad ogni valutazione ci sarà 1 possibilità su 3 che l'annuncio venga effettivamente mostrato
-        if(Math.random() * 3  > 2) {
+        if( getRandom(1,3) === 3) {
             loadAd();
             return;
         } 
@@ -263,7 +272,7 @@ function nextQuestion() {
 
 }
 
-//  Funzione che si occupa di eseguire tutte le operazioni allo scadere del tempo disponibile per ogni domanda
+//  Esegue tutte le operazioni allo scadere del tempo disponibile per ogni domanda
 
 function timeExpired() {
     elButtons.submit.disabled = true;
@@ -293,7 +302,7 @@ function loadAd(){
     hideGameControls();
     showAdBox();
     
-    let secondsLeft = 15;   //  Durata visualizzazione annuncio
+    let secondsLeft = timeForAd;   //  Durata visualizzazione annuncio
     
     timerAd = setInterval(() => {
         if(secondsLeft === 0) {
@@ -362,4 +371,18 @@ function resetBar() {
     elBar.background.style.animationDuration = 0;
     elBar.background.classList.remove("time-bar__white-bg--running");
     elBar.background.classList.remove("time-bar__white-bg--complete");
+}
+
+/*
+***
+***     Funzioni
+***     Generiche
+***
+*/
+
+
+//  Restituisce numero casuale compreso fra min e max
+
+function getRandom(min,max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
 }

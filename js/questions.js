@@ -282,9 +282,11 @@ const storia = [
     }
 ];
 
-const questionsAll = [...storia , ...informatica , ...geografia , ...scienze];
-
 const topics =   [
+    {
+        label : 'tutto' ,
+        questions : [...storia , ...informatica , ...geografia , ...scienze]
+    } ,
     {
         label     : 'storia' ,
         questions :  storia
@@ -300,11 +302,6 @@ const topics =   [
     {
         label     : 'scienze' ,
         questions :  scienze
-    } ,
-    {
-        label : 'tutto' ,
-        questions : questionsAll
-    }
-    
+    } ,    
 ];
 

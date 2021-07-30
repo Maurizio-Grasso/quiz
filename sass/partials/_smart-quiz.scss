@@ -5,23 +5,26 @@
     justify-content: center;
     
     min-height: 100vh;
-    padding: $spacing-huge $spacing-standard;
+    padding: $spacing-standard;
 
     > *:not(:last-child) {
-        margin-bottom: $spacing-huge;
+        margin-bottom: $spacing-big;
     }
-
+    
 }
 
 .ad {
     &__container {
         @include flex-col;
     }
-
+    
     &__img {
+        min-height: 0;
+        flex: 1 0 0;
+
         img {
             max-width: 100%;
-            max-height: 50vh;
+            max-height: 100%;
             display: block;
             margin: auto;
         }
