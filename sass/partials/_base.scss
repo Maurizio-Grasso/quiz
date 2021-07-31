@@ -1,97 +1,6 @@
-$content-width : 80rem;
 
-$border-radius-standard : .5rem;
-
-//  Text
-
-$font-size-default : 2rem;
-
-$font-family-default: 'Raleway', sans-serif;
-
-$letter-spacing-default : 1px;
-
-$line-height-default : 1.35em;
-
-
-//  Colors
-
-$color-primary : rgb(23, 64, 139);
-
-$color-text : rgb(63, 63, 63);
-
-$white: rgb(240, 240, 240);
-$black: rgb(17, 17, 17);
-
-$red : rgb(192, 0, 0);
-
-$orange :rgb(255, 136, 0);
-
-$green : rgb(0, 156, 0);
-$lightgreen : rgb(0, 231, 0);
-
-$gray: gray;
-$lightgray : rgb(204, 204, 204);
-
-//  Spacings
-
-$spacing-tiny       : .5rem;
-$spacing-small      :  1rem;
-$spacing-standard   :  2rem; 
-$spacing-big        :  3rem;
-$spacing-huge       :  5rem;
-
-
-//  Sizing
-
-$section-tiny   : 1.5rem;
-$section-small  : 2.5rem;
-$section-medium  : 6rem;
-
-
-//  Times
-
-$transition-duration-short : .5s;
 
 //  Mixins
-
-@mixin standard-typography {
-    font-size: $font-size-default;
-    line-height: $line-height-default;
-    font-family: $font-family-default;
-    color: $color-text;
-    letter-spacing: $letter-spacing-default;
-}
-
-@mixin flex-col {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-}
-// Media Queries
-
-
-@mixin resp($breakpoint) {
-
-    @if $breakpoint == phone {
-        @media only screen and (max-width: 31.25em) {    // 600px
-            @content
-        };
-    }
-
-    @if $breakpoint == tablet {
-        @media only screen and (max-width: 64em) {    // 1024px
-            @content
-        };
-    }
-
-    @if $breakpoint == desktop {
-        @media only screen and (max-width: 75em) {    // 1200px
-            @content
-        };
-    }
-}
-
-// Defaults
 
 :root {
     font-size: 62.5%;
@@ -142,9 +51,6 @@ body {
     @include resp(tablet) {
         padding: 0;
     }
-
-
-
 }
 
 h1 ,

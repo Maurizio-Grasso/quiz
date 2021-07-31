@@ -6,7 +6,6 @@
     padding: $spacing-standard;
     background-color: $white;    
 
-
     > * {
         &:not(:last-child) {
             margin-bottom: $spacing-big;
@@ -14,10 +13,8 @@
     }
 }
     
-    
-    
-
 .ad {
+
     &__container {
         @include flex-col;
         @include main-section;
@@ -27,7 +24,11 @@
         min-height: 0;
         flex: 1 0 0;
 
+        @include flex-col;
+
         img {
+            min-height: 0;
+            // flex-basis: 0;
             max-width: 100%;
             max-height: 100%;
             display: block;
@@ -35,6 +36,7 @@
         }
     }
 }
+
 .instructions {
 
     &__heading {
@@ -63,6 +65,7 @@
 }
 
 .results {
+
     &__container {
         @include flex-col;
         @include main-section;
@@ -74,7 +77,6 @@
     
     @include flex-col;
     @include main-section;
-
 
     position: relative;
 }
@@ -159,4 +161,39 @@
         }
     }
 
+}
+
+.topic {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    &__label {
+        flex: 0 0 100%;
+    }
+
+    &__select {
+        width: 100%;
+        @include standard-typography;
+
+        padding: $spacing-small $spacing-big;
+        text-align: center;
+
+        border: 1px solid transparent;        
+        border-radius: $border-radius-standard;
+
+        &:focus ,
+        &:active {
+            outline: none;
+            border-color: $color-primary;
+            color: $color-primary;
+            background-color: $white;
+        }
+    }
+
+    &__option {
+        color: $color-text;
+    }
 }

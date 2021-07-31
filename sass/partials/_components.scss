@@ -49,38 +49,3 @@
     }
 
 }
-
-.topic {
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-
-    &__label {
-        flex: 0 0 100%;
-    }
-
-    &__select {
-        width: 100%;
-        @include standard-typography;
-
-        padding: $spacing-small $spacing-big;
-        text-align: center;
-
-        border: 1px solid transparent;        
-        border-radius: $border-radius-standard;
-
-        &:focus ,
-        &:active {
-            outline: none;
-            border-color: $color-primary;
-            color: $color-primary;
-            background-color: $white;
-        }
-    }
-
-    &__option {
-        color: $color-text;
-    }
-}

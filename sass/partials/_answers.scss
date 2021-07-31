@@ -6,6 +6,9 @@
 
     &__single {
 
+        opacity: 1;
+        transition: opacity $transition-duration-short;
+
         &:not(:last-child) {
             margin-bottom: $spacing-standard;
         }

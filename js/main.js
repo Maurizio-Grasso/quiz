@@ -4,16 +4,18 @@
 
     const allowMultipleTopics   = true;     //  L'utente può scegliere un argomento specifico?
     const showAd                = true;     //  Mostrare annunci pubblicitari?
-    const jollyAvalaible        = 2;        //  Quanti jolly sono previsti? (0 per disabilitarli del tutto)
-    const secondsPerAnswer      = 15;       //  Tempo a disposizione dell'utente per rispondere ad ogni domanda
-    const timeForAd             = 20;       //  Tempo di visualizzazione del messaggio pubblicitario
+    const jollyAvalaible        = 5;        //  Quanti jolly sono previsti? (0 per disabilitarli del tutto)
+    const secondsPerAnswer      = 30;       //  Tempo a disposizione dell'utente per rispondere ad ogni domanda
+    const timeForAd             = 30;       //  Tempo di visualizzazione del messaggio pubblicitario
 
 //  Elements
 
-const elInstruction = {
+const elInstructions = {
     container        : document.querySelector('.instructions__container'),
     chooseTopic      : document.querySelector('.instructions__choose-topic'),
-    secondsPerAnswer : document.querySelector('.instructions__seconds-per-answer')
+    secondsPerAnswer : document.querySelector('.instructions__seconds') ,
+    jollyItem        : document.querySelector('.instructions__jolly-item') ,
+    jollyCount       : document.querySelector('.instructions__jolly-count') ,
 }
 
 const elJolly = {
@@ -66,7 +68,7 @@ const elAd = {
     questionsLeft       : document.querySelector('.ad__questions-left'),
 }
 
-let quizRunning , questions , currentQuestionIndex , question , score , selectedAnswer , timerGame , timerAd , jollyLeft;
+let questions , currentQuestionIndex , question , score , selectedAnswer , answersList , timerGame , timerAd , jollyLeft , answersLeft;
 
 init();
 
@@ -92,7 +94,7 @@ function init(){
 ***
 */
 
-//  Mostra / Nasconde box del Jolly
+//  Mostra box del Jolly
 
 function showJollyBox(){
 
@@ -105,9 +107,6 @@ function showJollyBox(){
     elJolly.leftBox.classList.remove('hidden');
 }
 
-function hideJollyBox(){
-    elJolly.container.classList.add('hidden');
-}
 
 //  Mostra / Nasconde intero container del gioco
 
@@ -124,13 +123,22 @@ function hideGameControls(){
 
 function showInstructions(){
 
-    elInstruction.secondsPerAnswer.textContent = secondsPerAnswer;
+    if (allowMultipleTopics) {
+        elInstructions.chooseTopic.textContent = ', scegli un argomento e';
+    }
+
+    if (jollyAvalaible){
+        elInstructions.jollyCount.textContent = jollyAvalaible;
+        elInstructions.jollyItem.classList.remove('hidden');
+    }
+
+    elInstructions.secondsPerAnswer.textContent = secondsPerAnswer;
         
-    elInstruction.container.classList.remove('hidden');
+    elInstructions.container.classList.remove('hidden');
 }
 
 function hideInstructions(){
-    elInstruction.container.classList.add('hidden');
+    elInstructions.container.classList.add('hidden');
 }
 
 
@@ -171,8 +179,6 @@ function hideAdBox() {
 
 function printTopicData() {
 
-    elInstruction.chooseTopic.textContent = ', scegli un argomento e';  //  modifica span delle istruzioni
-
     elTopic.container.classList.remove('hidden');
 
     elTopic.select.innerHTML = '';    
@@ -198,7 +204,7 @@ function printAnswers() {
 
     elAnswer.container.innerHTML = '';
 
-    question.answers.forEach((answer , index) => {
+    answersList.forEach((answer , index) => {
 
         elAnswer.container.innerHTML += 
         `<div class="answers__single answers__single--${index}">
@@ -259,7 +265,7 @@ function readAnswer(val) {
 
 function submitAnswer(noAnswer = false) {
 
-    clearTimeout(timerGame);
+    resetTimerGame();
     resetBar();
 
     //  Se viene fornita una risposta ne valuta l'esattezza aggiornando il punteggio di conseguenza
@@ -289,15 +295,19 @@ function submitAnswer(noAnswer = false) {
 function nextQuestion() {
             
     question = questions[currentQuestionIndex]; //  alias
+
+    answersList = [...question.answers]    // risposte alla domanda corrente
     
     elButtons.submit.disabled = true;
     
+    answersLeft = question.answers.length;
+
     printQuestionData();
     printAnswers();
     runBar();
     
     timerGame = setTimeout( function() {
-        timeExpired()
+        timeExpired();
     }, 1000 * secondsPerAnswer);
     
     currentQuestionIndex++;
@@ -308,8 +318,16 @@ function nextQuestion() {
 
 function timeExpired() {
     elButtons.submit.disabled = true;
-    timerGame = null;
+    resetTimerGame();
     pulseBar();
+}
+
+
+//  Resetta Timer di Gioco
+
+function resetTimerGame() {
+    clearTimeout(timerGame);
+    timerGame = null;
 }
 
 
@@ -418,10 +436,43 @@ function resetBar() {
 //  Ciò che avviene quando l'utente clicca sul pulsante del jolly
 
 function useJolly(){
+
+    if(!jollyLeft)  return;         //  Se non ci sono più jolly disponibily non si prosegue
+    if(!timerGame) return;          // Il Jolly può essere usato solo quando una domanda è in corso (i.e. quando il timer è attivo)
+    if(answersLeft === 1) return;   //  Se è rimasta una solta possibile risposta, non si può più usare il jolly
     
     console.log("Stai usando un Jolly!");
+    
     jollyLeft --;
-    jollyLeft == 0 ? disableJolly() : printJollyLeft(jollyLeft);    
+    
+    jollyLeft === 0 ? disableJolly() : printJollyLeft(jollyLeft);    
+    
+    removeWrongAnswer();
+    
+}
+
+function removeWrongAnswer() {
+    
+    const tmp = getRandom(0 , (question.answers.length - 1));
+    
+    if(tmp === question.correct || !answersList[tmp]) {
+        removeWrongAnswer();
+        return;
+    }
+    
+    answersList[tmp] = null;
+
+    // document.querySelector('.answers__single--'+tmp).classList.add('hidden');
+    document.querySelector('.answers__single--'+tmp).classList.add('vanish');
+    
+    setTimeout(() => {
+        document.querySelector('.answers__single--'+tmp).style.visibility = 'hidden';        
+    }, 500);
+    
+    answersLeft--;
+
+    console.log("Sto rimuovendo risposta all'indice " + tmp + ".\nLa risposta corretta era quella all'indice " + question.correct);
+
 }
 
 
@@ -429,7 +480,7 @@ function useJolly(){
 
 function disableJolly() {
     elJolly.leftBox.classList.add('hidden');
-    elJolly.container.classList.add('jolly__container--disabled')
+    elJolly.container.classList.add('jolly__container--disabled');
 }
 
 
