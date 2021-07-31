@@ -1,0 +1,88 @@
+.jolly {
+
+    &__container {
+        position: absolute;
+        z-index: 99;
+    
+        right: $spacing-big;
+        top: $spacing-big;
+
+        height: $section-medium;
+        width: $section-medium;
+
+        line-height: $section-medium;
+
+        text-align: center;
+
+        background-color: $color-primary;
+
+        color: $white;
+
+
+        border-radius: 50%;
+
+
+        cursor: pointer;
+
+        &:hover {
+            i {
+                transform: scale(1.2) rotate(120deg);
+            }
+        }
+
+        &--disabled {
+
+            background-color: $lightgray;
+            cursor: not-allowed;
+
+            &:hover {
+                i {
+                    transform: none;
+                }
+            }
+
+        }
+
+    }
+    
+    &__icon {
+        transition: transform $transition-duration-short;
+    }
+
+    &__left-box {
+
+        // display: block;
+        z-index: 11;
+
+        
+        position: absolute;
+        
+        top: - $spacing-tiny;
+        
+        right: - $spacing-tiny;
+        
+        width: $section-small;
+        height: $section-small;
+        
+        line-height: $section-small;
+        text-align: center;
+        
+        background-color: $orange;
+        
+        border-radius: 50%;
+        
+    }
+    
+    &__left-num {
+        
+        color: $white;
+        font-size: 65%;
+        
+        position: absolute;
+
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50% , calc(-50% - 2px));
+    }
+}

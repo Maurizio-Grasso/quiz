@@ -44,7 +44,9 @@ $spacing-huge       :  5rem;
 //  Sizing
 
 $section-tiny   : 1.5rem;
-$section-small  : 3rem;
+$section-small  : 2.5rem;
+$section-medium  : 6rem;
+
 
 //  Times
 
@@ -59,6 +61,14 @@ $transition-duration-short : .5s;
     color: $color-text;
     letter-spacing: $letter-spacing-default;
 }
+
+@mixin flex-col {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+// Media Queries
+
 
 @mixin resp($breakpoint) {
 
@@ -117,10 +127,28 @@ body {
 }
 
 .outer-wrapper {
+    
+    @include flex-col;
+
+    justify-content: stretch;
+
     max-width: $content-width;
     margin: 0 auto;
-    background-color: $white;
+    min-height: 100vh;
+    padding: $spacing-standard;
+
+    position: relative;
+
+    @include resp(tablet) {
+        padding: 0;
+    }
+
+
+
 }
 
-// Media Queries
-
+h1 ,
+h2 {
+    font-size: 4rem;
+    line-height: 5rem;
+}

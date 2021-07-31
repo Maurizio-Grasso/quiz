@@ -3,7 +3,8 @@
 //  Settings
 
     const allowMultipleTopics   = true;     //  L'utente può scegliere un argomento specifico?
-    const showAd                = true;    //  Mostrare annunci pubblicitari?
+    const showAd                = true;     //  Mostrare annunci pubblicitari?
+    const jollyAvalaible        = 2;        //  Quanti jolly sono previsti? (0 per disabilitarli del tutto)
     const secondsPerAnswer      = 15;       //  Tempo a disposizione dell'utente per rispondere ad ogni domanda
     const timeForAd             = 20;       //  Tempo di visualizzazione del messaggio pubblicitario
 
@@ -13,6 +14,13 @@ const elInstruction = {
     container        : document.querySelector('.instructions__container'),
     chooseTopic      : document.querySelector('.instructions__choose-topic'),
     secondsPerAnswer : document.querySelector('.instructions__seconds-per-answer')
+}
+
+const elJolly = {
+    container   : document.querySelector('.jolly__container'),
+    icon        : document.querySelector('.jolly__icon'),
+    leftBox     : document.querySelector('.jolly__left-box'),
+    leftNum     : document.querySelector('.jolly__left-num'),
 }
 
 const elTopic = {
@@ -58,7 +66,7 @@ const elAd = {
     questionsLeft       : document.querySelector('.ad__questions-left'),
 }
 
-let questions , currentQuestionIndex , question , score , selectedAnswer , timerGame , timerAd;
+let quizRunning , questions , currentQuestionIndex , question , score , selectedAnswer , timerGame , timerAd , jollyLeft;
 
 init();
 
@@ -66,9 +74,13 @@ init();
 //  Inizializzazione del'app
 
 function init(){
+
     hideResults();
     hideGameControls();
+
     if(allowMultipleTopics) printTopicData();
+    if(jollyAvalaible) showJollyBox();
+    
     showInstructions();
 }
 
@@ -80,12 +92,29 @@ function init(){
 ***
 */
 
+//  Mostra / Nasconde box del Jolly
+
+function showJollyBox(){
+
+    jollyLeft = jollyAvalaible;
+
+    printJollyLeft(jollyAvalaible);
+
+    elJolly.container.classList.remove('jolly__container--disabled');
+    elJolly.container.classList.remove('hidden');
+    elJolly.leftBox.classList.remove('hidden');
+}
+
+function hideJollyBox(){
+    elJolly.container.classList.add('hidden');
+}
 
 //  Mostra / Nasconde intero container del gioco
 
 function showGameControls(){
     elQuizContainer.classList.remove('hidden');
 }
+
 function hideGameControls(){
     elQuizContainer.classList.add('hidden');
 }
@@ -99,6 +128,7 @@ function showInstructions(){
         
     elInstruction.container.classList.remove('hidden');
 }
+
 function hideInstructions(){
     elInstruction.container.classList.add('hidden');
 }
@@ -111,6 +141,7 @@ function showResults(){
     elResults.maxScore.textContent = 2 * questions.length;
     elResults.container.classList.remove('hidden');
 }
+
 function hideResults(){
     elResults.container.classList.add('hidden');
 }
@@ -124,6 +155,7 @@ function showAdBox() {
     elAd.questionsLeft.textContent = (questions.length - currentQuestionIndex);
     elAd.container.classList.remove('hidden');
 }
+
 function hideAdBox() {
     elAd.container.classList.add('hidden');
 }
@@ -372,6 +404,42 @@ function resetBar() {
     elBar.background.classList.remove("time-bar__white-bg--running");
     elBar.background.classList.remove("time-bar__white-bg--complete");
 }
+
+
+/*
+***
+***     Funzioni che riguardano
+***     l'utilizzo del jolly
+***
+*/
+
+
+
+//  Ciò che avviene quando l'utente clicca sul pulsante del jolly
+
+function useJolly(){
+    
+    console.log("Stai usando un Jolly!");
+    jollyLeft --;
+    jollyLeft == 0 ? disableJolly() : printJollyLeft(jollyLeft);    
+}
+
+
+//  Ciò che avviene quando sono stati utilizzati tutti i Jolly
+
+function disableJolly() {
+    elJolly.leftBox.classList.add('hidden');
+    elJolly.container.classList.add('jolly__container--disabled')
+}
+
+
+//  Stampa numero di jolly rimanenti mell'apposito box
+
+function printJollyLeft(val) {
+    elJolly.leftNum.textContent = val;
+}
+
+
 
 /*
 ***

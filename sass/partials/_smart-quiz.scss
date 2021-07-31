@@ -1,21 +1,26 @@
-@mixin flex-col {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-    
-    min-height: 100vh;
-    padding: $spacing-standard;
+@mixin main-section {
 
-    > *:not(:last-child) {
-        margin-bottom: $spacing-big;
+    flex-grow: 1;
+
+    justify-content: center;
+    padding: $spacing-standard;
+    background-color: $white;    
+
+
+    > * {
+        &:not(:last-child) {
+            margin-bottom: $spacing-big;
+        }
     }
-    
 }
+    
+    
+    
 
 .ad {
     &__container {
         @include flex-col;
+        @include main-section;
     }
     
     &__img {
@@ -31,14 +36,19 @@
     }
 }
 .instructions {
+
+    &__heading {
+        padding-right: $section-medium + 2 * $spacing-big // spazio per icona
+    }
     
     &__container {
         @include flex-col;
+        @include main-section;
     }
 
     &__text {
 
-        p , ul , li{
+        p , ul , li {
 
             &:not(:last-child) {
                 margin-bottom: $spacing-standard;
@@ -55,12 +65,16 @@
 .results {
     &__container {
         @include flex-col;
+        @include main-section;
+
     }
 }
 
 .smart-quiz {
     
     @include flex-col;
+    @include main-section;
+
 
     position: relative;
 }
