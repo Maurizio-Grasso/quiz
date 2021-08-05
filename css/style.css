@@ -137,10 +137,10 @@ h2 {
 
 .time-bar {
   position: absolute;
-  bottom: 1.5rem;
+  bottom: 2.5rem;
   left: 0;
-  height: 1.5rem;
-  line-height: 1.5rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
   background-image: linear-gradient(to right, #009c00 40%, #ff8800 70%, #c00000 95%, #c00000 100%);
   background-repeat: no-repeat;
   background-size: 100%;
@@ -155,12 +155,12 @@ h2 {
   background-repeat: no-repeat;
   background-image: linear-gradient(#f0f0f0, #f0f0f0);
   background-position: right;
+  background-size: 100%;
+  padding-left: 2rem;
+  color: #f0f0f0;
+  font-size: 85%;
 }
-.time-bar__white-bg--running {
-  -webkit-animation: run-bar 5s linear forwards;
-          animation: run-bar 5s linear forwards;
-}
-.time-bar__white-bg--complete {
+.time-bar__white-bg--expired {
   -webkit-animation: pulse-bar 1s linear both infinite;
           animation: pulse-bar 1s linear both infinite;
 }
@@ -352,6 +352,26 @@ h2 {
 
 .vanish {
   opacity: 0;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.text-primary {
+  color: #17408b;
+}
+
+.text-red {
+  color: #c00000;
+}
+
+.text-green {
+  color: #009c00;
+}
+
+.text-orange {
+  color: #ff8800;
 }
 
 .jolly__container {

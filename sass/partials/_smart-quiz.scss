@@ -83,10 +83,10 @@
 
 .time-bar {
     position: absolute;
-    bottom: $section-tiny;
+    bottom: $section-small;
     left: 0;
-    height: $section-tiny;
-    line-height: $section-tiny;
+    height: $section-small;
+    line-height: $section-small;
     background-image: linear-gradient(to right , $green 40%, $orange 70%, $red 95% , $red 100%);
     background-repeat: no-repeat;
     background-size: 100%;
@@ -102,12 +102,12 @@
         background-repeat: no-repeat;
         background-image: linear-gradient($white, $white);
         background-position: right;
-        
-        &--running {
-            animation: run-bar 5s linear forwards;
-        }
+        background-size: 100%;
+        padding-left: $spacing-standard;
+        color: $white;
+        font-size: 85%;
 
-        &--complete {
+        &--expired {
             animation: pulse-bar 1s linear both infinite;
         }
 

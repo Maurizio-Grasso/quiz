@@ -5,17 +5,20 @@
     const allowMultipleTopics   = true;     //  L'utente può scegliere un argomento specifico?
     const showAd                = true;     //  Mostrare annunci pubblicitari?
     const jollyAvalaible        = 5;        //  Quanti jolly sono previsti? (0 per disabilitarli del tutto)
-    const secondsPerAnswer      = 30;       //  Tempo a disposizione dell'utente per rispondere ad ogni domanda
+    const secondsPerAnswer      = 20;       //  Tempo a disposizione dell'utente per rispondere ad ogni domanda
     const timeForAd             = 30;       //  Tempo di visualizzazione del messaggio pubblicitario
+    const jollyBonusSeconds     = 10;       //  Secondi bonus generati dal jolly
+
 
 //  Elements
 
 const elInstructions = {
-    container        : document.querySelector('.instructions__container'),
-    chooseTopic      : document.querySelector('.instructions__choose-topic'),
-    secondsPerAnswer : document.querySelector('.instructions__seconds') ,
-    jollyItem        : document.querySelector('.instructions__jolly-item') ,
-    jollyCount       : document.querySelector('.instructions__jolly-count') ,
+    container           : document.querySelector('.instructions__container'),
+    chooseTopic         : document.querySelector('.instructions__choose-topic'),
+    secondsPerAnswer    : document.querySelector('.instructions__seconds') ,
+    jollyItem           : document.querySelector('.instructions__jolly-item') ,
+    jollyCount          : document.querySelector('.instructions__jolly-count') ,
+    jollyBonusSeconds   : document.querySelector('.instructions__jolly-bonus-seconds'),
 }
 
 const elJolly = {
@@ -51,7 +54,8 @@ const elButtons = {
 
 const elBar = {
     container   : document.querySelector('.time-bar'),
-    background  : document.querySelector('.time-bar__white-bg')
+    background  : document.querySelector('.time-bar__white-bg'),
+    countdown   : document.querySelector('.time-bar__countdown'),
 }
 
 const elResults = {
@@ -68,7 +72,7 @@ const elAd = {
     questionsLeft       : document.querySelector('.ad__questions-left'),
 }
 
-let questions , currentQuestionIndex , question , score , selectedAnswer , answersList , timerGame , timerAd , jollyLeft , answersLeft;
+let questions , currentQuestionIndex , question , score , selectedAnswer , answersList , timerGame , timerAd , jollyLeft , secondsLeftGame , jollyCurrentQuestion;
 
 init();
 
@@ -129,6 +133,7 @@ function showInstructions(){
 
     if (jollyAvalaible){
         elInstructions.jollyCount.textContent = jollyAvalaible;
+        elInstructions.jollyBonusSeconds.textContent = jollyBonusSeconds;
         elInstructions.jollyItem.classList.remove('hidden');
     }
 
@@ -278,9 +283,8 @@ function submitAnswer(noAnswer = false) {
         gameOver();
         return;
     } else if( showAd && currentQuestionIndex >= 3 && currentQuestionIndex % 2 === 0) {
-        //  Valuta se mostrare annuncio pubblicitario. La valutazione viene effettuata ogni due domande a partire dalla quarta.
-        //  Ad ogni valutazione ci sarà 1 possibilità su 3 che l'annuncio venga effettivamente mostrato
-        if( getRandom(1,3) === 3) {
+        //  Valuta se mostrare annuncio pubblicitario. La valutazione viene effettuata ogni due domande a partire dalla quarta.        
+        if( getRandom(1,3) === 3) { //  Ad ogni valutazione ci sarà 1 possibilità su 3 che l'annuncio venga mostrato
             loadAd();
             return;
         } 
@@ -295,29 +299,37 @@ function submitAnswer(noAnswer = false) {
 function nextQuestion() {
             
     question = questions[currentQuestionIndex]; //  alias
-
     answersList = [...question.answers]    // risposte alla domanda corrente
+    elButtons.submit.disabled = true;      // pulsante submit disabilitato finché non viene selezionata una risposta
+    jollyCurrentQuestion = 0;   // resetta jolly utilizzati per domanda corrente
+    secondsLeftGame = secondsPerAnswer; //  Inizializza i secondi rimanenti
     
-    elButtons.submit.disabled = true;
-    
-    answersLeft = question.answers.length;
-
     printQuestionData();
     printAnswers();
-    runBar();
-    
-    timerGame = setTimeout( function() {
-        timeExpired();
-    }, 1000 * secondsPerAnswer);
-    
-    currentQuestionIndex++;
+    runTimer();
 
+    currentQuestionIndex++;
+}
+
+function runTimer() {
+    elBar.countdown.textContent = secondsLeftGame;
+    timerGame = setInterval(() => {
+        secondsLeftGame--;
+        console.log(`Rimangono ${secondsLeftGame} secondi`);
+        elBar.countdown.textContent = secondsLeftGame;
+        secondsLeftGame === 0 && timeExpired();
+    }, 1000);
+    
+    runBar();
 }
 
 //  Esegue tutte le operazioni allo scadere del tempo disponibile per ogni domanda
 
 function timeExpired() {
+    elBar.countdown.textContent = '';
+
     elButtons.submit.disabled = true;
+    console.log("Tempo Scaduto!");
     resetTimerGame();
     pulseBar();
 }
@@ -326,7 +338,7 @@ function timeExpired() {
 //  Resetta Timer di Gioco
 
 function resetTimerGame() {
-    clearTimeout(timerGame);
+    clearInterval(timerGame);
     timerGame = null;
 }
 
@@ -352,17 +364,17 @@ function loadAd(){
     hideGameControls();
     showAdBox();
     
-    let secondsLeft = timeForAd;   //  Durata visualizzazione annuncio
+    let secondsLeftAd = timeForAd;   //  Durata visualizzazione annuncio
     
     timerAd = setInterval(() => {
-        if(secondsLeft === 0) {
+        if(secondsLeftAd === 0) {
             clearInterval(timerAd);
             elAd.resumeBtn.disabled = false;
             elAd.timeLeft.textContent = '->';
             
         } else {
-            elAd.timeLeft.textContent = secondsLeft;
-            secondsLeft --;
+            elAd.timeLeft.textContent = secondsLeftAd;
+            secondsLeftAd --;
         }
     }, 100);    // Dovrà essere impostato a 1000
 }
@@ -390,12 +402,15 @@ function clearAd(){
 
 function runBar() {
 
-    resetBar();
+    let totalSeconds = secondsPerAnswer + (jollyCurrentQuestion * jollyBonusSeconds);   // Numero di secondi totali (considerando i jolly utilizzati per rispondere)
 
-    //  Cambio lo style con un timeout, per evitare che il browser accorpi tutte le modifiche
+    // Passo come argomento la percentuale di tempo rimanente rispetto a quello totale impiegato per la domanda. Servirà per la corretta animazione della barra
+    resetBar((100 * secondsLeftGame) / totalSeconds);
+
+    //  Cambio style con timeout, per evitare che il browser accorpi tutte le modifiche
     setTimeout(() => {        
-        elBar.background.style.animationDuration = secondsPerAnswer + 's';
-        elBar.background.classList.add("time-bar__white-bg--running");
+        elBar.background.style.transition = 'all ' + secondsLeftGame + 's linear 0s';
+        elBar.background.style.backgroundSize = '0%';
     }, 50);
 
 }
@@ -410,17 +425,17 @@ function pulseBar() {
     //  Cambio lo style con un timeout, per evitare che il browser accorpi tutte le modifiche
     setTimeout(() => {
         elBar.background.style.animationDuration = '1s';
-        elBar.background.classList.add("time-bar__white-bg--complete");
+        elBar.background.classList.add("time-bar__white-bg--expired");
     }, 50);
 }
 
 
 //  Rimuove tutte le classi e le regole css assegnate alla barra
 
-function resetBar() {
-    elBar.background.style.animationDuration = 0;
-    elBar.background.classList.remove("time-bar__white-bg--running");
-    elBar.background.classList.remove("time-bar__white-bg--complete");
+function resetBar(percentLeft = 100) {
+    elBar.background.style.transition = 'all 0s linear 0s';
+    elBar.background.style.backgroundSize = `${percentLeft}%`;
+    elBar.background.classList.remove("time-bar__white-bg--expired");
 }
 
 
@@ -438,9 +453,8 @@ function resetBar() {
 function useJolly(){
 
     if(!jollyLeft)  return;         //  Se non ci sono più jolly disponibily non si prosegue
-    if(!timerGame) return;          // Il Jolly può essere usato solo quando una domanda è in corso (i.e. quando il timer è attivo)
-    if(answersLeft === 1) return;   //  Se è rimasta una solta possibile risposta, non si può più usare il jolly
-    
+    if(secondsLeftGame < 1) return;          // Il Jolly può essere usato solo quando una domanda è in corso (i.e. quando il timer è attivo)
+    if(jollyCurrentQuestion === question.answers.length - 1 ) return;   //  Se è rimasta una solta possibile risposta, non si può più usare il jolly
     console.log("Stai usando un Jolly!");
     
     jollyLeft --;
@@ -448,6 +462,13 @@ function useJolly(){
     jollyLeft === 0 ? disableJolly() : printJollyLeft(jollyLeft);    
     
     removeWrongAnswer();
+    
+    jollyCurrentQuestion++;
+
+    secondsLeftGame += jollyBonusSeconds;  // Aggiunge i secondi bonus
+
+    resetTimerGame();
+    runTimer();
     
 }
 
@@ -462,14 +483,12 @@ function removeWrongAnswer() {
     
     answersList[tmp] = null;
 
-    // document.querySelector('.answers__single--'+tmp).classList.add('hidden');
     document.querySelector('.answers__single--'+tmp).classList.add('vanish');
     
     setTimeout(() => {
         document.querySelector('.answers__single--'+tmp).style.visibility = 'hidden';        
     }, 500);
     
-    answersLeft--;
 
     console.log("Sto rimuovendo risposta all'indice " + tmp + ".\nLa risposta corretta era quella all'indice " + question.correct);
 
@@ -490,15 +509,12 @@ function printJollyLeft(val) {
     elJolly.leftNum.textContent = val;
 }
 
-
-
 /*
 ***
 ***     Funzioni
 ***     Generiche
 ***
 */
-
 
 //  Restituisce numero casuale compreso fra min e max
 
