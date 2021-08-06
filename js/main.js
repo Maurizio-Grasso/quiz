@@ -6,9 +6,8 @@
     const showAd                = true;     //  Mostrare annunci pubblicitari?
     const jollyAvalaible        = 5;        //  Quanti jolly sono previsti? (0 per disabilitarli del tutto)
     const secondsPerAnswer      = 20;       //  Tempo a disposizione dell'utente per rispondere ad ogni domanda
-    const timeForAd             = 30;       //  Tempo di visualizzazione del messaggio pubblicitario
+    const timeForAd             = 10;       //  Tempo di visualizzazione del messaggio pubblicitario
     const jollyBonusSeconds     = 10;       //  Secondi bonus generati dal jolly
-
 
 //  Elements
 
@@ -49,7 +48,6 @@ const elAnswer = {
 
 const elButtons = {
     container   : document.querySelector('.button__container') ,
-    submit      : document.querySelector('.button__submit') ,
 }
 
 const elBar = {
@@ -72,7 +70,7 @@ const elAd = {
     questionsLeft       : document.querySelector('.ad__questions-left'),
 }
 
-let questions , currentQuestionIndex , question , score , selectedAnswer , answersList , timerGame , timerAd , jollyLeft , secondsLeftGame , jollyCurrentQuestion;
+let questions , currentQuestionIndex , question , score , answersList , timerGame , timerAd , jollyLeft , secondsLeftGame , jollyCurrentQuestion;
 
 init();
 
@@ -212,16 +210,13 @@ function printAnswers() {
     answersList.forEach((answer , index) => {
 
         elAnswer.container.innerHTML += 
-        `<div class="answers__single answers__single--${index}">
-            <label class="answers__label" for="answer-${index}">
-                <input class="answers__input" name="answer" type="radio" id="answer-${index}" value="${index}" onchange="readAnswer(this.value)">
+        `<div onclick="submitAnswer('${index}')" class="answers__single answers__single--unchecked answers__single--${index}">
                 ${answer}
-            </label>            
         </div>`
 
     });
-
 }
+
 
 /*
 ***
@@ -230,6 +225,11 @@ function printAnswers() {
 ***
 */
 
+//  Recupera elenco domande relative all'argomento scelto dall'utente
+
+function getQuestionsList() {
+    return topics[(elTopic.select?.value) || 0].questions;
+}
 
 //  Avvia il quiz
 
@@ -253,46 +253,49 @@ function quizStart() {
     nextQuestion();
 }
 
-function getQuestionsList() {
-    return topics[(elTopic.select?.value) || 0].questions;
-}
-
-// Memorizza la risposta selezionata dall'utente
-
-function readAnswer(val) {
-    if(!timerGame) return;  // Se il tempo è scaduto non esegue nessuna operazione
-    selectedAnswer = Number(val);
-    elButtons.submit.disabled = false;
-}
-
 
 //  Operazioni da eseguire quando l'utente invia una risposta o skippa la domanda
 
-function submitAnswer(noAnswer = false) {
+function submitAnswer(answer) {
+    
+    // parametro answer === -1 nel caso di risposta saltata
+
+    answer = Number(answer);
+    
+    if(answer > -1) {
+        if(!timerGame) return;  // Se il tempo è scaduto non esegue nessuna operazione: l'utnte dovrà cliccare su 'salta'        
+        answer === question.correct ? score += 2 : score -= 1 ; // altrimenti controlla esattezza della risposta ed aggiora punteggio
+        document.querySelector('.answers__single--' + answer).classList.add('answers__single--checked');
+    }
 
     resetTimerGame();
     resetBar();
 
-    //  Se viene fornita una risposta ne valuta l'esattezza aggiornando il punteggio di conseguenza
-    if(!noAnswer) {
-        selectedAnswer === question.correct ? score += 2 : score -= 1 ;
-    }
-
     if(currentQuestionIndex === (questions.length)) {
         // Se non ci sono altre domande chiudo il gioco
-        gameOver();
+        setTimeout(() => { gameOver(); }, 500);
         return;
-    } else if( showAd && currentQuestionIndex >= 3 && currentQuestionIndex % 2 === 0) {
-        //  Valuta se mostrare annuncio pubblicitario. La valutazione viene effettuata ogni due domande a partire dalla quarta.        
-        if( getRandom(1,3) === 3) { //  Ad ogni valutazione ci sarà 1 possibilità su 3 che l'annuncio venga mostrato
-            loadAd();
-            return;
-        } 
+    } 
+
+    if(showAd && evaluateAD()) { 
+        //  Attende mezzo secondo e lancia messaggio pubblicitario
+        setTimeout(() => { loadAd(); }, 500);
+        return;
     }
-    
-    nextQuestion();
+
+    //  Attende mezzo secondo e lancia domanda successiva    
+    setTimeout(() => { nextQuestion(); }, 500);
 }
 
+
+// Determina se caricare un annuncio pubblicitario
+
+function evaluateAD() {
+    if(currentQuestionIndex < 3) return false;
+    if(currentQuestionIndex >= questions.length - 1) return false;
+    if(currentQuestionIndex % 2 === 1) return false;
+    if(getRandom(1,3) === 3) return true;
+}
 
 //  Lancia domanda successiva
 
@@ -300,9 +303,8 @@ function nextQuestion() {
             
     question = questions[currentQuestionIndex]; //  alias
     answersList = [...question.answers]    // risposte alla domanda corrente
-    elButtons.submit.disabled = true;      // pulsante submit disabilitato finché non viene selezionata una risposta
     jollyCurrentQuestion = 0;   // resetta jolly utilizzati per domanda corrente
-    secondsLeftGame = secondsPerAnswer; //  Inizializza i secondi rimanenti
+    secondsLeftGame = secondsPerAnswer; //  Inizializza i secondi rimanenti a quelli disponibili di default
     
     printQuestionData();
     printAnswers();
@@ -311,11 +313,15 @@ function nextQuestion() {
     currentQuestionIndex++;
 }
 
+
+//  Fa partire il timer di gioco
+
 function runTimer() {
+
     elBar.countdown.textContent = secondsLeftGame;
+
     timerGame = setInterval(() => {
         secondsLeftGame--;
-        console.log(`Rimangono ${secondsLeftGame} secondi`);
         elBar.countdown.textContent = secondsLeftGame;
         secondsLeftGame === 0 && timeExpired();
     }, 1000);
@@ -328,8 +334,6 @@ function runTimer() {
 function timeExpired() {
     elBar.countdown.textContent = '';
 
-    elButtons.submit.disabled = true;
-    console.log("Tempo Scaduto!");
     resetTimerGame();
     pulseBar();
 }
@@ -453,9 +457,8 @@ function resetBar(percentLeft = 100) {
 function useJolly(){
 
     if(!jollyLeft)  return;         //  Se non ci sono più jolly disponibily non si prosegue
-    if(secondsLeftGame < 1) return;          // Il Jolly può essere usato solo quando una domanda è in corso (i.e. quando il timer è attivo)
+    if(!timerGame) return;          // Il Jolly può essere usato solo quando una domanda è in corso (i.e. quando il timer è attivo)
     if(jollyCurrentQuestion === question.answers.length - 1 ) return;   //  Se è rimasta una solta possibile risposta, non si può più usare il jolly
-    console.log("Stai usando un Jolly!");
     
     jollyLeft --;
     
@@ -472,11 +475,14 @@ function useJolly(){
     
 }
 
+
+//  Cancella una delle possibili risposte dall'elenco
+
 function removeWrongAnswer() {
     
-    const tmp = getRandom(0 , (question.answers.length - 1));
+    const tmp = getRandom(0 , (question.answers.length - 1));   // valore casuale che corrisponderà all'indice della risposta da cancellare
     
-    if(tmp === question.correct || !answersList[tmp]) {
+    if(tmp === question.correct || !answersList[tmp]) { // se l'indice coincide con la risposta corretta o con una già cancellata lo ricalcola
         removeWrongAnswer();
         return;
     }
@@ -488,9 +494,6 @@ function removeWrongAnswer() {
     setTimeout(() => {
         document.querySelector('.answers__single--'+tmp).style.visibility = 'hidden';        
     }, 500);
-    
-
-    console.log("Sto rimuovendo risposta all'indice " + tmp + ".\nLa risposta corretta era quella all'indice " + question.correct);
 
 }
 

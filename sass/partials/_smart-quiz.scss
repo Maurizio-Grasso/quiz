@@ -69,7 +69,6 @@
     &__container {
         @include flex-col;
         @include main-section;
-
     }
 }
 
@@ -145,22 +144,10 @@
         }
     }
 
-    &__submit ,
     &__skip{
-
-        flex: 0 0 calc( (100% - #{$spacing-standard}) / 2);
-
-        @include resp(phone) {
-
-            flex: 1 1 100%;
-
-            &:not(:last-child) {
-                margin-bottom: $spacing-standard;
-            }
-
-        }
+        flex: 0 0 100%;
+        margin-bottom: $spacing-standard;
     }
-
 }
 
 .topic {

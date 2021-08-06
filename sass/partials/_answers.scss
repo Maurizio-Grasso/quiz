@@ -6,28 +6,40 @@
 
     &__single {
 
+        border: 1px solid $color-primary;
+        border-radius: $border-radius-standard;
+        color: $color-primary;
         opacity: 1;
-        transition: opacity $transition-duration-short;
 
+        
         &:not(:last-child) {
             margin-bottom: $spacing-standard;
         }
-    }
 
-    &__label {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        align-items: center;
-    }
+        &--unchecked {
+        transition: all $transition-duration-short;
+        padding: $spacing-standard;
+        padding-right: $spacing-big;
+        cursor: pointer;
 
-    &__input {
-        margin-right: $spacing-standard;
-    }
+        }
+        
+        &--checked {
+            background-color: $color-primary;
+            color: $white;
+            position: relative;
 
-    &__img {
-        max-width: 100%;
-    }
+            &::after {
+                content: '\f00c';
+                position: absolute;
+                top: 50%;
+                right: $spacing-standard;
+                transform: translateY(-50%);
 
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900; 
+            }
+        }
+    }
 }
+
