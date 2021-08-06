@@ -32,7 +32,12 @@ body {
     font-size: $font-size-default;
     @include standard-typography;
     
-    background-color: $lightgray;
+    // background-color: $lightgray;
+    background-image: url('../img/bg.jpg');
+
+    @include resp(tablet) {
+        background-image: none;
+    }
 }
 
 .outer-wrapper {
@@ -44,12 +49,13 @@ body {
     max-width: $content-width;
     margin: 0 auto;
     min-height: 100vh;
-    padding: $spacing-standard;
+    padding: $spacing-standard 0;
 
     position: relative;
 
     @include resp(tablet) {
         padding: 0;
+
     }
 }
 

@@ -48,6 +48,7 @@ const elAnswer = {
 
 const elButtons = {
     container   : document.querySelector('.button__container') ,
+    skip        : document.querySelector('.button__skip') ,
 }
 
 const elBar = {
@@ -210,11 +211,31 @@ function printAnswers() {
     answersList.forEach((answer , index) => {
 
         elAnswer.container.innerHTML += 
-        `<div onclick="submitAnswer('${index}')" class="answers__single answers__single--unchecked answers__single--${index}">
+        `<div onclick="submitAnswer('${index}')" class="answers__single answers__single--unchecked answers__single--${index} vanish" style="transform: translateY(-50%)">
                 ${answer}
         </div>`
 
     });
+
+
+    let i = 0;
+
+    const removeVanish = setInterval(() => {        
+        
+        document.querySelector(`.answers__single--${i}`).classList.remove('vanish');
+        document.querySelector(`.answers__single--${i}`).style = `transform: translateY(0); z-index : ${answersList.length - i} `
+        i++;
+        
+        if(i === answersList.length){
+            clearInterval(removeVanish);
+            runTimer();
+            setTimeout(() => {
+                elButtons.skip.classList.remove('vanish');                
+            }, 1000);
+        }        
+
+    }, 250);
+
 }
 
 
@@ -300,7 +321,8 @@ function evaluateAD() {
 //  Lancia domanda successiva
 
 function nextQuestion() {
-            
+
+    elButtons.skip.classList.add('vanish');
     question = questions[currentQuestionIndex]; //  alias
     answersList = [...question.answers]    // risposte alla domanda corrente
     jollyCurrentQuestion = 0;   // resetta jolly utilizzati per domanda corrente
@@ -308,7 +330,7 @@ function nextQuestion() {
     
     printQuestionData();
     printAnswers();
-    runTimer();
+    // runTimer();  // Spostato nel setInterval di printAnswers();
 
     currentQuestionIndex++;
 }
