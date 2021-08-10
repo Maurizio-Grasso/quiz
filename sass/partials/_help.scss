@@ -5,7 +5,12 @@
         z-index: 99;
     
         right: $spacing-big;
+
         top:  $spacing-big + $spacing-standard;
+
+        @include resp(tablet) {
+            top:  $spacing-big;
+        }
 
         height: $section-medium;
         width: $section-medium;

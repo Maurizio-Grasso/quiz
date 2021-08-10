@@ -35,7 +35,7 @@ body {
   letter-spacing: 1px;
   background-image: url("../img/bg.jpg");
 }
-@media only screen and (max-width: 64em) {
+@media only screen and (max-width: 31.25em) {
   body {
     background-image: none;
   }
@@ -126,7 +126,7 @@ h2 {
   flex-direction: column;
   flex-wrap: nowrap;
   flex-grow: 1;
-  justify-content: center;
+  justify-content: space-between;
   padding: 2rem 3rem;
   background-color: #f0f0f0;
   border-radius: 0.5rem;
@@ -162,7 +162,7 @@ h2 {
   flex-direction: column;
   flex-wrap: nowrap;
   flex-grow: 1;
-  justify-content: center;
+  justify-content: space-between;
   padding: 2rem 3rem;
   background-color: #f0f0f0;
   border-radius: 0.5rem;
@@ -188,7 +188,7 @@ h2 {
   flex-direction: column;
   flex-wrap: nowrap;
   flex-grow: 1;
-  justify-content: center;
+  justify-content: space-between;
   padding: 2rem 3rem;
   background-color: #f0f0f0;
   border-radius: 0.5rem;
@@ -207,7 +207,7 @@ h2 {
   flex-direction: column;
   flex-wrap: nowrap;
   flex-grow: 1;
-  justify-content: center;
+  justify-content: space-between;
   padding: 2rem 3rem;
   background-color: #f0f0f0;
   border-radius: 0.5rem;
@@ -225,13 +225,15 @@ h2 {
 .time-bar {
   position: absolute;
   bottom: 2.5rem;
-  left: 0;
+  left: 3rem;
   height: 2.5rem;
   line-height: 2.5rem;
   background-image: linear-gradient(to right, #009c00 40%, #ff8800 70%, #c00000 95%, #c00000 100%);
   background-repeat: no-repeat;
   background-size: 100%;
-  width: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  width: calc( 100% - 2 * 3rem);
 }
 .time-bar__white-bg {
   position: absolute;
@@ -400,6 +402,11 @@ h2 {
   color: #f0f0f0;
   border-radius: 50%;
   cursor: pointer;
+}
+@media only screen and (max-width: 64em) {
+  .jolly__container {
+    top: 3rem;
+  }
 }
 .jolly__container:hover i {
   transform: scale(1.2) rotate(120deg);

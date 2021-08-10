@@ -49,7 +49,7 @@
 
                 <div class="instructions__container">
 
-                    <h1 class="instructions__heading">Smart Quiz: Istruzioni</h1>
+                    <h1 class="instructions__heading">Smart Quiz: Come si Gioca</h1>
                     
                     <div class="instructions__text">
                         
@@ -58,11 +58,11 @@
                         </p>
 
                         <ul>
-                            <li>Guadagnerai <span class="text-bold text-green">2 punti</span> per ogni risposta corretta.</li>
-                            <li>Guadagnerai <span class="text-bold text-orange">0 punti</span> per ogni risposta non data (<em>domanda saltata</em>).</li>
-                            <li>Perderai <span class="text-bold text-red">1 punto</span> per ogni risposta sbagliata.</li>
+                            <li>Guadagnerai <span class="instructions__points-right-answer text-bold text-green"></span> per ogni risposta corretta.</li>
+                            <li class="instructions__skipped-rule hidden">Guadagnerai <span class="text-bold text-orange">0 punti</span> per ogni risposta non data (<em>domanda saltata</em>).</li>
+                            <li class="instructions__wrong-rule hidden">Perderai <span class="instructions__points-wrong-answer text-bold text-red"></span> per ogni risposta sbagliata.</li>
                             <li>Per rispondere a ciascuna domanda, avrai a disposizione <strong><span class="instructions__seconds"></span> secondi</strong>. Scaduto il tempo, la domanda sarà considerata '<em>saltata</em>'.</li>
-                            <li class="instructions__jolly-item hidden">Durante il gioco potrai usare <strong><span class="instructions__jolly-count"></span> jolly</strong>. Usando un jolly (pulsante in alto a destra) una delle risposte sbagliate verrà rimossa ed avrai a disposizione <span class="instructions__jolly-bonus-seconds"></span> secondi in più per rispondere.</li>
+                            <li class="instructions__jolly-rule hidden">Durante il gioco potrai usare <strong><span class="instructions__jolly-count"></span> jolly</strong>. Usando un jolly (pulsante in alto a destra) una delle risposte sbagliate verrà rimossa ed avrai a disposizione <strong><span class="instructions__jolly-bonus-seconds"></span> secondi in più</strong> per rispondere.</li>
                         </ul>
 
                         <p>

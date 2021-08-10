@@ -8,6 +8,8 @@
     const secondsPerAnswer      = 20;       //  Tempo a disposizione dell'utente per rispondere ad ogni domanda
     const timeForAd             = 10;       //  Tempo di visualizzazione del messaggio pubblicitario
     const jollyBonusSeconds     = 10;       //  Secondi bonus generati dal jolly
+    const pointsPerRightAnswer  = 2;        //  Punti per ogni risposta corretta
+    const pointsPerWrongAnswer  = -1;       //  Punti per ogni risposta errata
 
 //  Elements
 
@@ -15,7 +17,11 @@ const elInstructions = {
     container           : document.querySelector('.instructions__container'),
     chooseTopic         : document.querySelector('.instructions__choose-topic'),
     secondsPerAnswer    : document.querySelector('.instructions__seconds') ,
-    jollyItem           : document.querySelector('.instructions__jolly-item') ,
+    pointsPerRightAnswer: document.querySelector('.instructions__points-right-answer') ,
+    pointsPerWrongAnswer: document.querySelector('.instructions__points-wrong-answer') ,
+    skippedRule         : document.querySelector('.instructions__skipped-rule') ,
+    wrongRule           : document.querySelector('.instructions__wrong-rule') ,
+    jollyRule           : document.querySelector('.instructions__jolly-rule') ,
     jollyCount          : document.querySelector('.instructions__jolly-count') ,
     jollyBonusSeconds   : document.querySelector('.instructions__jolly-bonus-seconds'),
 }
@@ -133,10 +139,17 @@ function showInstructions(){
     if (jollyAvalaible){
         elInstructions.jollyCount.textContent = jollyAvalaible;
         elInstructions.jollyBonusSeconds.textContent = jollyBonusSeconds;
-        elInstructions.jollyItem.classList.remove('hidden');
+        elInstructions.jollyRule.classList.remove('hidden');
+    }
+
+    if(pointsPerWrongAnswer) {
+        elInstructions.pointsPerWrongAnswer.textContent = `${Math.abs(pointsPerWrongAnswer)} punt${pointsPerWrongAnswer === -1 ? 'o' : 'i'}`;
+        elInstructions.wrongRule.classList.remove('hidden');
+        elInstructions.skippedRule.classList.remove('hidden');
     }
 
     elInstructions.secondsPerAnswer.textContent = secondsPerAnswer;
+    elInstructions.pointsPerRightAnswer.textContent = `${pointsPerRightAnswer} punt${pointsPerRightAnswer === 1 ? 'o' : 'i'}` ;
         
     elInstructions.container.classList.remove('hidden');
 }
@@ -150,7 +163,7 @@ function hideInstructions(){
 
 function showResults(){
     elResults.score.textContent = score;
-    elResults.maxScore.textContent = 2 * questions.length;
+    elResults.maxScore.textContent = pointsPerRightAnswer * questions.length;
     elResults.container.classList.remove('hidden');
 }
 
@@ -217,24 +230,25 @@ function printAnswers() {
 
     });
 
-
     let i = 0;
 
     const removeVanish = setInterval(() => {        
         
         document.querySelector(`.answers__single--${i}`).classList.remove('vanish');
         document.querySelector(`.answers__single--${i}`).style = `transform: translateY(0); z-index : ${answersList.length - i} `
-        i++;
         
-        if(i === answersList.length){
+        // Ultimo elemento
+        if(i === answersList.length - 1){
             clearInterval(removeVanish);
             runTimer();
             setTimeout(() => {
-                elButtons.skip.classList.remove('vanish');                
-            }, 1000);
-        }        
+                elButtons.skip.classList.remove('vanish');               
+            }, 500);
+        }
+        
+        i++;
 
-    }, 250);
+    }, 200);
 
 }
 
@@ -285,7 +299,7 @@ function submitAnswer(answer) {
     
     if(answer > -1) {
         if(!timerGame) return;  // Se il tempo è scaduto non esegue nessuna operazione: l'utnte dovrà cliccare su 'salta'        
-        answer === question.correct ? score += 2 : score -= 1 ; // altrimenti controlla esattezza della risposta ed aggiora punteggio
+        score += answer === question.correct ? pointsPerRightAnswer : pointsPerWrongAnswer ; // altrimenti controlla esattezza della risposta ed aggiora punteggio
         document.querySelector('.answers__single--' + answer).classList.add('answers__single--checked');
     }
 
@@ -305,7 +319,7 @@ function submitAnswer(answer) {
     }
 
     //  Attende mezzo secondo e lancia domanda successiva    
-    setTimeout(() => { nextQuestion(); }, 500);
+        setTimeout(() => { nextQuestion(); }, 500);
 }
 
 
@@ -323,6 +337,7 @@ function evaluateAD() {
 function nextQuestion() {
 
     elButtons.skip.classList.add('vanish');
+
     question = questions[currentQuestionIndex]; //  alias
     answersList = [...question.answers]    // risposte alla domanda corrente
     jollyCurrentQuestion = 0;   // resetta jolly utilizzati per domanda corrente
@@ -502,19 +517,19 @@ function useJolly(){
 
 function removeWrongAnswer() {
     
-    const tmp = getRandom(0 , (question.answers.length - 1));   // valore casuale che corrisponderà all'indice della risposta da cancellare
+    const randomIndex = getRandom(0 , (question.answers.length - 1));   // valore casuale che corrisponderà all'indice della risposta da cancellare
     
-    if(tmp === question.correct || !answersList[tmp]) { // se l'indice coincide con la risposta corretta o con una già cancellata lo ricalcola
+    if(randomIndex === question.correct || !answersList[randomIndex]) { // se l'indice coincide con la risposta corretta o con una già cancellata lo ricalcola
         removeWrongAnswer();
         return;
     }
     
-    answersList[tmp] = null;
+    answersList[randomIndex] = null;
 
-    document.querySelector('.answers__single--'+tmp).classList.add('vanish');
+    document.querySelector('.answers__single--'+randomIndex).classList.add('vanish');
     
     setTimeout(() => {
-        document.querySelector('.answers__single--'+tmp).style.visibility = 'hidden';        
+        document.querySelector('.answers__single--'+randomIndex).style.visibility = 'hidden';        
     }, 500);
 
 }
