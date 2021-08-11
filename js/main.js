@@ -215,13 +215,9 @@ function printQuestionData() {
 
     document.querySelector('.question__image')?.remove();
     
-    if(question.type == "image") {
-        console.log("È un'immagine!");
+    if(question.imgName) {
         elQuestion.container.insertAdjacentHTML('beforeend' , `<img class="question__image" src="${imgPath}${question.imgName}" alt="">`);
-    } else {
-
     }
-
 }
 
 
@@ -350,6 +346,8 @@ function nextQuestion() {
     elButtons.skip.classList.add('vanish');
 
     question = questions[currentQuestionIndex]; //  alias
+
+    window.scrollTo(0, 0);
 
     answersList = [...question.answers]    // risposte alla domanda corrente
     jollyCurrentQuestion = 0;   // resetta jolly utilizzati per domanda corrente

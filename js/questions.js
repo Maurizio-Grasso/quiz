@@ -3,7 +3,6 @@ const imgPath = 'img/questions/';
 const informatica = [
     {
         text : 'A quanti bit corrisponde un byte?' ,
-        type : 'plain-text' ,
         answers : [
             '1' ,
             '2' ,
@@ -16,7 +15,6 @@ const informatica = [
 
     {
         text : 'Quale fra questi NON è un linguaggio di programmazione?' ,
-        type : 'plain-text' ,
         answers : [
             'Python',
             'Java' ,
@@ -29,7 +27,6 @@ const informatica = [
 
     {
         text : 'Quale fra questi software è un browser?' ,
-        type : 'plain-text' ,
         answers : [
             'eMule',
             'Opera' ,
@@ -42,7 +39,6 @@ const informatica = [
 
     {
         text : 'Chi è considerato il \'papà\' del Web?' ,
-        type : 'plain-text' ,
         answers : [
             'Tim Berners-Lee',
             'Evan You' ,
@@ -55,7 +51,6 @@ const informatica = [
 
     {
         text : 'Quale linguaggio viene impiegato per gestire il layout delle pagine Web?' ,
-        type : 'plain-text' ,
         answers : [
             'JavaScript',
             'PHP' ,
@@ -70,7 +65,6 @@ const informatica = [
 const geografia = [
     {
         text : 'Nella cartina fisica dell\'Europa qui sotto, in quale Paese ricade il segnaposto?' ,
-        type : 'image' ,
         imgName: 'img-001.jpg',
         answers : [
             'Romania' ,
@@ -83,7 +77,6 @@ const geografia = [
     } ,
     {
         text : 'In quale Paese europeo è stata scattata questa immagine?' ,
-        type : 'image' ,
         imgName: 'img-002.jpg',
         answers : [
             'Albania' ,
@@ -97,7 +90,6 @@ const geografia = [
 
     {
         text : 'Quale fra questi Paesi ha la popolazione maggiore?' ,
-        type : 'plain-text' ,
         answers : [
             'Spagna' ,
             'Italia' ,
@@ -110,7 +102,6 @@ const geografia = [
 
     {
         text : 'Quale di queste isole ha l\'estensione maggiore?' ,
-        type : 'plain-text' ,
         answers : [
             'Sardegna' ,
             'Sicilia' ,
@@ -123,7 +114,6 @@ const geografia = [
 
     {
         text : 'Con quale di questi Paesi NON confina la Polonia?' ,
-        type : 'plain-text' ,
         answers : [
             'Russia',
             'Ungheria' ,
@@ -136,7 +126,6 @@ const geografia = [
 
     {
         text : 'Quale di queste città si trova più a nord?' ,
-        type : 'plain-text' ,
         answers : [
             'Londra',
             'Berlino' ,
@@ -148,7 +137,6 @@ const geografia = [
     } ,
     {
         text : 'Osserva l\'immagine qui sotto. Di quale Paese rappresenta la Sagoma?' ,
-        type : 'image' ,
         imgName: 'img-003.jpg',
         answers : [
             'Ungheria' ,
@@ -162,7 +150,6 @@ const geografia = [
 
     {
         text : 'Quale fra questi Paesi NON si trova nello stesso emisfero degli altri tre?' ,
-        type : 'plain-text' ,
         answers : [
             'Papua Nuova Guinea' ,
             'Filippine',
@@ -177,7 +164,6 @@ const geografia = [
 const scienze = [
     {
         text : 'Qual è il numero primo immediatamente superiore a 100?' ,
-        type : 'plain-text' ,
         answers : [
             '101',
             '102' ,
@@ -190,7 +176,6 @@ const scienze = [
 
     {
         text : 'A quanti metri di profondità si trova il punto più profondo degli oceani oggi conosciuto?',
-        type : 'plain-text' ,
         answers : [
             'Circa 3.000' ,
             'circa 6.000' ,
@@ -203,7 +188,6 @@ const scienze = [
 
     {
         text : 'Quale fra queste affermazioni sul Sistema Solare è errata?' ,
-        type : 'plain-text' ,
         answers : [
             'Venere è più distante dal Sole rispetto alla Terra',
             'Il pianeta più vicino al sole è Mercurio' ,
@@ -216,7 +200,6 @@ const scienze = [
 
     {
         text : 'Qual è il simbolo chimico dell\'oro?' ,
-        type : 'plain-text' ,
         answers : [
             'Au',
             'Go' ,
@@ -229,7 +212,6 @@ const scienze = [
 
     {
         text : 'Se lancio una monetina 5 volte, quante possibilità ci sono che esca sempre \'croce\'?' ,
-        type : 'plain-text' ,
         answers : [
             '1 su 64',
             '2 su 10' ,
@@ -245,7 +227,6 @@ const storia = [
 
     {
         text : 'Quale di questi personaggi è nato per primo?' ,
-        type : 'plain-text' ,
         answers : [
             'Charles Darwin',
             'Alessandro Volta' ,
@@ -258,7 +239,6 @@ const storia = [
 
     {
         text : 'In che anno fu portata a termine la prima circumnavigazione completa della Terra?' ,
-        type : 'plain-text' ,
         answers : [
             '1492',
             '1501' ,
@@ -271,7 +251,6 @@ const storia = [
 
     {
         text : 'In che anno ha avuto luogo la rivoluzione francese?' ,
-        type : 'plain-text' ,
         answers : [
             '1679' ,
             '1897' ,
@@ -284,7 +263,6 @@ const storia = [
 
     {
         text : 'In quale anno il Titanic affondò?' ,
-        type : 'plain-text' ,
         answers : [
             '1901',
             '1920' ,
@@ -297,7 +275,6 @@ const storia = [
 
     {
         text : 'Quale papa fu eletto lo stesso anno della scoperta dell\'America?' ,
-        type : 'plain-text' ,
         answers : [
             'Alessandro VI',
             'Sisto IV' ,
@@ -310,7 +287,6 @@ const storia = [
 
     {
         text : 'Quale di questi personaggi nacque e morì nel corso dello stesso secolo?' ,
-        type : 'plain-text' ,
         answers : [
             'Leonardo da Vinci',
             'Napoleone Bonaparte' ,
