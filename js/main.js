@@ -212,6 +212,16 @@ function printTopicData() {
 function printQuestionData() {
     elQuestion.text.textContent = question.text;
     elQuestion.index.textContent = (currentQuestionIndex + 1);
+
+    document.querySelector('.question__image')?.remove();
+    
+    if(question.type == "image") {
+        console.log("È un'immagine!");
+        elQuestion.container.insertAdjacentHTML('beforeend' , `<img class="question__image" src="${imgPath}${question.imgName}" alt="">`);
+    } else {
+
+    }
+
 }
 
 
@@ -227,7 +237,7 @@ function printAnswers() {
         `<div onclick="submitAnswer('${index}')" class="answers__single answers__single--unchecked answers__single--${index} vanish" style="transform: translateY(-50%)">
                 ${answer}
         </div>`
-
+        
     });
 
     let i = 0;
@@ -336,9 +346,11 @@ function evaluateAD() {
 
 function nextQuestion() {
 
+    document.querySelector('.question__image')?.classList.add('vanish');
     elButtons.skip.classList.add('vanish');
 
     question = questions[currentQuestionIndex]; //  alias
+
     answersList = [...question.answers]    // risposte alla domanda corrente
     jollyCurrentQuestion = 0;   // resetta jolly utilizzati per domanda corrente
     secondsLeftGame = secondsPerAnswer; //  Inizializza i secondi rimanenti a quelli disponibili di default

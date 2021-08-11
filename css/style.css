@@ -34,6 +34,7 @@ body {
   color: #3f3f3f;
   letter-spacing: 1px;
   background-image: url("../img/bg.jpg");
+  background-attachment: fixed;
 }
 @media only screen and (max-width: 31.25em) {
   body {
@@ -387,6 +388,11 @@ h2 {
 }
 .question__text {
   margin-bottom: 2rem;
+}
+.question__image {
+  transition: all 0.5s;
+  max-width: 100%;
+  opacity: 1;
 }
 
 .jolly__container {

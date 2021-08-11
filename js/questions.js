@@ -1,3 +1,4 @@
+const imgPath = 'img/questions/';
 
 const informatica = [
     {
@@ -67,6 +68,32 @@ const informatica = [
 ];
 
 const geografia = [
+    {
+        text : 'Nella cartina fisica dell\'Europa qui sotto, in quale Paese ricade il segnaposto?' ,
+        type : 'image' ,
+        imgName: 'img-001.jpg',
+        answers : [
+            'Romania' ,
+            'Bulgaria' ,
+            'Serbia' ,
+            'Moldavia'
+        ] ,
+        correct : 1 ,
+        topic : 'geografia' ,
+    } ,
+    {
+        text : 'In quale Paese europeo è stata scattata questa immagine?' ,
+        type : 'image' ,
+        imgName: 'img-002.jpg',
+        answers : [
+            'Albania' ,
+            'Moldavia' ,
+            'Macedonia del Nord' ,
+            'Kosovo'
+        ] ,
+        correct : 0 ,
+        topic : 'geografia' ,
+    } ,
 
     {
         text : 'Quale fra questi Paesi ha la popolazione maggiore?' ,
@@ -117,6 +144,19 @@ const geografia = [
             'Varsavia ' ,
         ] ,
         correct : 1 ,
+        topic : 'geografia' ,
+    } ,
+    {
+        text : 'Osserva l\'immagine qui sotto. Di quale Paese rappresenta la Sagoma?' ,
+        type : 'image' ,
+        imgName: 'img-003.jpg',
+        answers : [
+            'Ungheria' ,
+            'Repubblica Ceca' ,
+            'Svizzera' ,
+            'Austria'
+        ] ,
+        correct : 3 ,
         topic : 'geografia' ,
     } ,
 

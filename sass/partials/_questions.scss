@@ -9,4 +9,10 @@
     &__text {
         margin-bottom: $spacing-standard;
     }
+
+    &__image {
+        transition: all $transition-duration-short;
+        max-width: 100%;
+        opacity: 1;
+    }
 }

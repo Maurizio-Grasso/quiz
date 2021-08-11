@@ -30,9 +30,11 @@ body {
 
 body {
     font-size: $font-size-default;
+
     @include standard-typography;
     
     background-image: url('../img/bg.jpg');
+    background-attachment: fixed;
 
     @include resp(phone) {
         background-image: none;
